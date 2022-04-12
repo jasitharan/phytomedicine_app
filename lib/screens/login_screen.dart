@@ -4,14 +4,16 @@ import 'package:phytomedicine_app/shared/constants.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/shared/snackbar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/login-screen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
 
@@ -94,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(
-                                    height: 45,
+                                    height: 40,
                                   ),
                                   const Align(
                                     alignment: Alignment.center,

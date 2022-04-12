@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/auth_model.dart';
-import 'package:phytomedicine_app/screens/home_screen.dart';
+import 'package:phytomedicine_app/screens/login_screen.dart';
 import 'package:phytomedicine_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        routes: {'/': (ctx) => const HomeScreen()},
+        routes: {'/': (ctx) => const LoginScreen()},
       ),
     );
   }
