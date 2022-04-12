@@ -216,7 +216,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Color.fromRGBO(26, 183, 168, 1)
                                               ],
                                             ),
-                                            color: Colors.deepPurple.shade300,
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
