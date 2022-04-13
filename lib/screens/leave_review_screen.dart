@@ -33,7 +33,15 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const SizedBox(),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                size: 32,
+                                color: Colors.white,
+                              )),
                           const Text(
                             'Leave a Review',
                             style: TextStyle(fontSize: 24, color: Colors.white),

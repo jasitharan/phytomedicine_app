@@ -33,7 +33,15 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const SizedBox(),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                size: 32,
+                                color: Colors.white,
+                              )),
                           const Text(
                             'Global Medical Guide',
                             style: TextStyle(fontSize: 24, color: Colors.white),

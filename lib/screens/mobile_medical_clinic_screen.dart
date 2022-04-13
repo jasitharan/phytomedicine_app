@@ -34,7 +34,15 @@ class _MobileMedicalClinicScreenState extends State<MobileMedicalClinicScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const SizedBox(),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                size: 32,
+                                color: Colors.white,
+                              )),
                           const Text(
                             'Mobile Medical Clinic',
                             style: TextStyle(fontSize: 24, color: Colors.white),
