@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/screens/signup_screen.dart';
 import 'package:phytomedicine_app/services/auth.dart';
 import 'package:phytomedicine_app/shared/constants.dart';
+import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/shared/snackbar.dart';
 import 'package:phytomedicine_app/widgets/item_tile.dart';
@@ -74,42 +75,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                   // topLeft: Radius.circular(32.0),
                                   topRight: Radius.circular(45.0)),
                             ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Image(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.25,
-                                        width: double.infinity,
-                                        image: const AssetImage(
-                                            'assets/images/banner.png')),
-                                  ),
-                                  // const SizedBox(
-                                  //   height: 50,
-                                  // ),
-                                  ItemTile(
-                                      handlerFunction: () {},
-                                      title: 'Guidebook',
-                                      imageName: 'healthcare'),
-                                  ItemTile(
-                                      handlerFunction: () {},
-                                      title: 'Phytomedicine',
-                                      imageName: 'healthcare2'),
-                                  ItemTile(
-                                      handlerFunction: () {},
-                                      title: 'Leave a Review',
-                                      imageName: 'healthcare3'),
-                                  ItemTile(
-                                      handlerFunction: () {},
-                                      title: 'Mobile Medical Clinic',
-                                      imageName: 'healthcare4'),
-                                  const SizedBox(
-                                    height: 30,
-                                  )
-                                ],
+                            child: ScrollConfiguration(
+                              behavior: CustomScroll(),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Image(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.25,
+                                          width: double.infinity,
+                                          image: const AssetImage(
+                                              'assets/images/banner.png')),
+                                    ),
+                                    // const SizedBox(
+                                    //   height: 50,
+                                    // ),
+                                    ItemTile(
+                                        handlerFunction: () {},
+                                        title: 'Guidebook',
+                                        imageName: 'healthcare'),
+                                    ItemTile(
+                                        handlerFunction: () {},
+                                        title: 'Phytomedicine',
+                                        imageName: 'healthcare2'),
+                                    ItemTile(
+                                        handlerFunction: () {},
+                                        title: 'Leave a Review',
+                                        imageName: 'healthcare3'),
+                                    ItemTile(
+                                        handlerFunction: () {},
+                                        title: 'Mobile Medical Clinic',
+                                        imageName: 'healthcare4'),
+                                    const SizedBox(
+                                      height: 30,
+                                    )
+                                  ],
+                                ),
                               ),
                             )))
                   ],
