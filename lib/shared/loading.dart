@@ -7,7 +7,24 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.white60,
+                BlendMode.srcIn,
+              ),
+              image: AssetImage(
+                'assets/images/background.png',
+              )),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(26, 183, 168, 1),
+              Color.fromRGBO(94, 209, 151, 1)
+            ],
+          )),
       child: const Center(
         child: SpinKitFadingCircle(
           color: Colors.white,

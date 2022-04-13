@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/screens/home_screen.dart';
-import 'package:phytomedicine_app/screens/signup_screen.dart';
+import 'package:phytomedicine_app/screens/login_screen.dart';
 import 'package:phytomedicine_app/services/auth.dart';
 import 'package:phytomedicine_app/shared/constants.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/shared/snackbar.dart';
 import 'package:validators/validators.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/login-screen';
+  static const routeName = '/signup-screen';
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
 
   String email = '';
   String password = '';
+  String name = '';
   String error = '';
   bool loading = false;
   bool _isHidden = true;
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   const Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      'Welcome back',
+                                      'Create Your Account',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w800,
@@ -114,6 +115,50 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 32.0, top: 24),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: const [
+                                        Image(
+                                            color: Colors.white,
+                                            image: AssetImage(
+                                                'assets/images/user.png')),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          'Name',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 24,
+                                        left: 24.0,
+                                        top: 16,
+                                        bottom: 16),
+                                    child: TextFormField(
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                      decoration: textInputDecoration.copyWith(
+                                        hintText: 'Name',
+                                      ),
+                                      validator: (val) =>
+                                          val!.isEmpty ? 'Enter an name' : null,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          name = val;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 32.0, top: 12),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: const [
@@ -246,12 +291,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     loading = true;
                                                   });
                                                   dynamic result = await _auth
-                                                      .signInWithEmailAndPassword(
+                                                      .registerWithEmailAndPassword(
                                                           email, password);
                                                   if (result != null) {
-                                                    Navigator
+                                                    Navigator.of(context)
                                                         .pushReplacementNamed(
-                                                            context,
                                                             HomeScreen
                                                                 .routeName);
                                                   } else {
@@ -266,7 +310,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 }
                                               },
                                               child: const Text(
-                                                'Login Now',
+                                                'Sign Up',
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
@@ -280,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       alignment: WrapAlignment.center,
                                       children: [
                                         const Text(
-                                          'Don’t have an account? ',
+                                          'Already have an account? ',
                                           style: TextStyle(
                                               fontSize: 16,
                                               color: Colors.white),
@@ -288,10 +332,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         InkWell(
                                           onTap: () {
                                             Navigator.of(context).pushNamed(
-                                                SignUpScreen.routeName);
+                                                LoginScreen.routeName);
                                           },
                                           child: const Text(
-                                            'Create Account',
+                                            'Login Here',
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 color: Color.fromRGBO(
