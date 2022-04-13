@@ -70,17 +70,6 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Image(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.25,
-                                          width: double.infinity,
-                                          image: const AssetImage(
-                                              'assets/images/banner.png')),
-                                    ),
                                     // const SizedBox(
                                     //   height: 50,
                                     // ),
