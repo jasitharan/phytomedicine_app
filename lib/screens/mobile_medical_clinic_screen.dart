@@ -32,28 +32,34 @@ class _MobileMedicalClinicScreenState extends State<MobileMedicalClinicScreen> {
                       width: double.infinity,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back,
-                                size: 32,
-                                color: Colors.white,
-                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  size: 32,
+                                  color: Colors.white,
+                                )),
+                          ),
                           const Text(
                             'Mobile Medical Clinic',
                             style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.settings,
-                                size: 32,
-                                color: Colors.white,
-                              ))
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.settings,
+                                  size: 32,
+                                  color: Colors.white,
+                                )),
+                          )
                         ],
                       ),
                     ),
