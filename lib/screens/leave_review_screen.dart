@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:phytomedicine_app/screens/guidebook_screen.dart';
-import 'package:phytomedicine_app/screens/leave_review_screen.dart';
-import 'package:phytomedicine_app/screens/mobile_medical_clinic_screen.dart';
-import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/widgets/item_tile.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class LeaveReviewScreen extends StatefulWidget {
+  const LeaveReviewScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/home-screen';
+  static const routeName = '/leave-review-screen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<LeaveReviewScreen> createState() => _LeaveReviewScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
   bool loading = false;
 
   @override
@@ -39,14 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           const SizedBox(),
                           const Text(
-                            'Global Medical Guide',
+                            'Leave a Review',
                             style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
                           IconButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, SettingScreen.routeName);
-                              },
+                              onPressed: () {},
                               icon: const Icon(
                                 Icons.settings,
                                 size: 32,
@@ -84,10 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     //   height: 50,
                                     // ),
                                     ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
-                                        },
+                                        handlerFunction: () {},
                                         title: 'Guidebook',
                                         imageName: 'healthcare'),
                                     ItemTile(
@@ -95,19 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         title: 'Phytomedicine',
                                         imageName: 'healthcare2'),
                                     ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              LeaveReviewScreen.routeName);
-                                        },
+                                        handlerFunction: () {},
                                         title: 'Leave a Review',
                                         imageName: 'healthcare3'),
                                     ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(
-                                              context,
-                                              MobileMedicalClinicScreen
-                                                  .routeName);
-                                        },
+                                        handlerFunction: () {},
                                         title: 'Mobile Medical Clinic',
                                         imageName: 'healthcare4'),
                                     const SizedBox(

@@ -1,8 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/auth_model.dart';
+import 'package:phytomedicine_app/screens/guidebook_screen.dart';
 import 'package:phytomedicine_app/screens/home_screen.dart';
+import 'package:phytomedicine_app/screens/leave_review_screen.dart';
 import 'package:phytomedicine_app/screens/login_screen.dart';
+import 'package:phytomedicine_app/screens/mobile_medical_clinic_screen.dart';
+import 'package:phytomedicine_app/screens/phytomedicine_screen.dart';
+import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/screens/signup_screen.dart';
 import 'package:phytomedicine_app/screens/wrapper.dart';
 import 'package:phytomedicine_app/services/auth.dart';
@@ -33,7 +38,13 @@ class MyApp extends StatelessWidget {
           '/': (ctx) => const Wrapper(),
           SignUpScreen.routeName: (ctx) => const SignUpScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
-          HomeScreen.routeName: (ctx) => const HomeScreen()
+          HomeScreen.routeName: (ctx) => const HomeScreen(),
+          GuideBookScreen.routeName: (ctx) => const GuideBookScreen(),
+          LeaveReviewScreen.routeName: (ctx) => const LeaveReviewScreen(),
+          MobileMedicalClinicScreen.routeName: (ctx) =>
+              const MobileMedicalClinicScreen(),
+          PhytoMedicineScreen.routeName: (ctx) => const PhytoMedicineScreen(),
+          SettingScreen.routeName: (ctx) => const SettingScreen()
         },
       ),
     );

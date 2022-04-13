@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:phytomedicine_app/screens/guidebook_screen.dart';
-import 'package:phytomedicine_app/screens/leave_review_screen.dart';
-import 'package:phytomedicine_app/screens/mobile_medical_clinic_screen.dart';
-import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/widgets/item_tile.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class MobileMedicalClinicScreen extends StatefulWidget {
+  const MobileMedicalClinicScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/home-screen';
+  static const routeName = '/mobile-medical-clinic-screen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MobileMedicalClinicScreen> createState() =>
+      _MobileMedicalClinicScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MobileMedicalClinicScreenState extends State<MobileMedicalClinicScreen> {
   bool loading = false;
 
   @override
@@ -39,14 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           const SizedBox(),
                           const Text(
-                            'Global Medical Guide',
+                            'Mobile Medical Clinic',
                             style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
                           IconButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, SettingScreen.routeName);
-                              },
+                              onPressed: () {},
                               icon: const Icon(
                                 Icons.settings,
                                 size: 32,
@@ -85,8 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     // ),
                                     ItemTile(
                                         handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
+                                          // print("Hello jasitharan");
                                         },
                                         title: 'Guidebook',
                                         imageName: 'healthcare'),
@@ -95,19 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         title: 'Phytomedicine',
                                         imageName: 'healthcare2'),
                                     ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              LeaveReviewScreen.routeName);
-                                        },
+                                        handlerFunction: () {},
                                         title: 'Leave a Review',
                                         imageName: 'healthcare3'),
                                     ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(
-                                              context,
-                                              MobileMedicalClinicScreen
-                                                  .routeName);
-                                        },
+                                        handlerFunction: () {},
                                         title: 'Mobile Medical Clinic',
                                         imageName: 'healthcare4'),
                                     const SizedBox(
