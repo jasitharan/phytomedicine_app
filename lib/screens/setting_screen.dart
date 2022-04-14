@@ -64,15 +64,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             'Setting',
                             style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.settings,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
+                          const SizedBox(
+                            width: 48,
                           )
                         ],
                       ),
@@ -267,7 +260,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                             ),
                                           ),
                                           const SizedBox(
-                                            height: 50,
+                                            height: 60,
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(24.0),
