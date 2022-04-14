@@ -85,6 +85,9 @@ class _MobileMedicalClinicScreenState extends State<MobileMedicalClinicScreen> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
                                       const Image(
                                           image: AssetImage(
                                               'assets/images/telescope.png')),
