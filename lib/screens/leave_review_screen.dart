@@ -174,6 +174,8 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0),
                                       child: TextFormField(
+                                        style: const TextStyle(
+                                            color: Colors.white),
                                         decoration: const InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
@@ -201,7 +203,7 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 15,
+                                      height: 30,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(24.0),
