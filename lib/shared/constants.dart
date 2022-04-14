@@ -5,7 +5,7 @@ final textInputDecoration = InputDecoration(
     filled: true,
     border: OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.transparent),
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(14.0),
     ),
     hintStyle: const TextStyle(color: Color.fromRGBO(189, 189, 189, 1)),
     enabledBorder: const OutlineInputBorder(
