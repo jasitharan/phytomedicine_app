@@ -14,6 +14,7 @@ class GuideBookScreen extends StatefulWidget {
 
 class _GuideBookScreenState extends State<GuideBookScreen> {
   bool loading = false;
+  final searchTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,27 +77,86 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    // const SizedBox(
-                                    //   height: 50,
-                                    // ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 32.0,
+                                          bottom: 24.0,
+                                          left: 16.0,
+                                          right: 16),
+                                      child: TextField(
+                                        controller: searchTextController,
+                                        onChanged: (_) async {},
+                                        style: const TextStyle(
+                                            color: Colors.white70),
+                                        autofocus: true,
+                                        decoration: InputDecoration(
+                                            isDense: true,
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 18,
+                                                    horizontal: 24.0),
+                                            fillColor: const Color.fromRGBO(
+                                                37, 55, 72, 1),
+                                            filled: true,
+                                            //  contentPadding: ,
+                                            suffixIcon: const Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.0),
+                                              child: Icon(
+                                                Icons.search,
+                                                size: 24,
+                                                color: Color.fromRGBO(
+                                                    26, 183, 168, 1),
+                                              ),
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            hintText: "Filter by keyword",
+                                            hintStyle: const TextStyle(
+                                                color: Color.fromRGBO(
+                                                    255, 255, 255, 0.31))),
+                                      ),
+                                    ),
                                     ItemTile(
-                                        handlerFunction: () {},
+                                        handlerFunction: () {
+                                          Navigator.pushNamed(context,
+                                              GuideBookScreen.routeName);
+                                        },
                                         title: 'Guidebook',
                                         imageName: 'healthcare'),
                                     ItemTile(
-                                        handlerFunction: () {},
-                                        title: 'Phytomedicine',
-                                        imageName: 'healthcare2'),
+                                        handlerFunction: () {
+                                          Navigator.pushNamed(context,
+                                              GuideBookScreen.routeName);
+                                        },
+                                        title: 'Guidebook',
+                                        imageName: 'healthcare'),
                                     ItemTile(
-                                        handlerFunction: () {},
-                                        title: 'Leave a Review',
-                                        imageName: 'healthcare3'),
+                                        handlerFunction: () {
+                                          Navigator.pushNamed(context,
+                                              GuideBookScreen.routeName);
+                                        },
+                                        title: 'Guidebook',
+                                        imageName: 'healthcare'),
                                     ItemTile(
-                                        handlerFunction: () {},
-                                        title: 'Mobile Medical Clinic',
-                                        imageName: 'healthcare4'),
+                                        handlerFunction: () {
+                                          Navigator.pushNamed(context,
+                                              GuideBookScreen.routeName);
+                                        },
+                                        title: 'Guidebook',
+                                        imageName: 'healthcare'),
+                                    ItemTile(
+                                        handlerFunction: () {
+                                          Navigator.pushNamed(context,
+                                              GuideBookScreen.routeName);
+                                        },
+                                        title: 'Guidebook',
+                                        imageName: 'healthcare'),
                                     const SizedBox(
-                                      height: 30,
+                                      height: 15,
                                     )
                                   ],
                                 ),
