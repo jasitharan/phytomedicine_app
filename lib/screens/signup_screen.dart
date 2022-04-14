@@ -49,24 +49,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: MediaQuery.of(context).size.height * 0.3,
                       child: GridTile(
                           footer: const SizedBox(),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Image(
-                                  image: AssetImage('assets/images/world.png')),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Center(
-                                child: Text(
-                                  'Global Medical Guide',
-                                  style: TextStyle(
-                                      fontSize: 32,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Image(
+                                    image:
+                                        AssetImage('assets/images/world.png')),
+                                SizedBox(
+                                  height: 20,
                                 ),
-                              ),
-                            ],
+                                Center(
+                                  child: Text(
+                                    'Global Medical Guide',
+                                    style: TextStyle(
+                                        fontSize: 32,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ],
+                            ),
                           )),
                       decoration: const BoxDecoration(
                           image: DecorationImage(
