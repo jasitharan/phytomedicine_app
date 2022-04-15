@@ -88,7 +88,7 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                         onChanged: (_) async {},
                                         style: const TextStyle(
                                             color: Colors.white70),
-                                        autofocus: true,
+                                        // autofocus: true,
                                         decoration: InputDecoration(
                                             isDense: true,
                                             contentPadding:
@@ -120,41 +120,20 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                                     255, 255, 255, 0.31))),
                                       ),
                                     ),
-                                    ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
-                                        },
-                                        title: 'Guidebook',
-                                        imageName: 'healthcare'),
-                                    ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
-                                        },
-                                        title: 'Guidebook',
-                                        imageName: 'healthcare'),
-                                    ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
-                                        },
-                                        title: 'Guidebook',
-                                        imageName: 'healthcare'),
-                                    ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
-                                        },
-                                        title: 'Guidebook',
-                                        imageName: 'healthcare'),
-                                    ItemTile(
-                                        handlerFunction: () {
-                                          Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
-                                        },
-                                        title: 'Guidebook',
-                                        imageName: 'healthcare'),
+                                    ListView.builder(
+                                      itemCount: conditions.length,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) => ItemTile(
+                                          handlerFunction: () {
+                                            Navigator.pushNamed(context,
+                                                GuideBookScreen.routeName);
+                                          },
+                                          title: conditions[index]['title'],
+                                          imageName: 'conditions/' +
+                                              conditions[index]['image']),
+                                    ),
                                     const SizedBox(
                                       height: 15,
                                     )
@@ -179,3 +158,11 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
     );
   }
 }
+
+List<Map> conditions = [
+  {'image': 'malaria', 'title': 'Malaria'},
+  {'image': 'tuberculosis', 'title': 'Tuberculosis'},
+  {'image': 'hiv', 'title': 'HIV/AIDS'},
+  {'image': 'heart_disease', 'title': 'Heart Disease'},
+  {'image': 'diabetes', 'title': 'Diabetese'}
+];
