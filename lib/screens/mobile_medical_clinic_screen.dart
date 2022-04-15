@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/shared/constants.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
@@ -54,7 +55,10 @@ class _MobileMedicalClinicScreenState extends State<MobileMedicalClinicScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, SettingScreen.routeName);
+                                },
                                 icon: const Icon(
                                   Icons.settings,
                                   size: 32,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/screens/pdfview_screen.dart';
+import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/widgets/item_tile.dart';
@@ -54,7 +55,10 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, SettingScreen.routeName);
+                                },
                                 icon: const Icon(
                                   Icons.settings,
                                   size: 32,

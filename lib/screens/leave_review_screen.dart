@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/auth_model.dart';
+import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/shared/snackbar.dart';
@@ -80,7 +81,10 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, SettingScreen.routeName);
+                                },
                                 icon: const Icon(
                                   Icons.settings,
                                   size: 32,
