@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             width: 10,
                                           ),
                                           Text(
-                                            'Email',
+                                            'Email / Username',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400,
@@ -149,14 +149,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                             color: Colors.white),
                                         decoration:
                                             textInputDecoration.copyWith(
-                                          hintText: 'Email',
+                                          hintText: 'Email / Username',
                                         ),
-                                        validator: (val) => !isEmail(val!)
-                                            ? 'Enter an Email'
+                                        validator: (val) => val!.isEmpty
+                                            ? 'Enter an Email / Username'
                                             : null,
                                         onChanged: (val) {
                                           setState(() {
-                                            email = val;
+                                            email = val.trim();
                                           });
                                         },
                                       ),
@@ -258,6 +258,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     setState(() {
                                                       loading = true;
                                                     });
+
+                                                    if (!isEmail(email)) {
+                                                      email = email +
+                                                          '@somemail.com';
+                                                    }
                                                     dynamic result = await _auth
                                                         .signInWithEmailAndPassword(
                                                             email, password);

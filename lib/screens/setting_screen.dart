@@ -36,7 +36,11 @@ class _SettingScreenState extends State<SettingScreen> {
         loading = true;
       });
       final user = Provider.of<Auth?>(context);
-      email = user?.email ?? '';
+
+      email = (user?.email.split('@')[1] == 'somemail.com'
+              ? user?.email.split('@')[0]
+              : user?.email) ??
+          '';
       setState(() {
         loading = false;
       });
@@ -134,7 +138,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                   width: 10,
                                                 ),
                                                 Text(
-                                                  'Email',
+                                                  'Email / Username',
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
@@ -148,20 +152,19 @@ class _SettingScreenState extends State<SettingScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 24.0, vertical: 16),
                                             child: TextFormField(
-                                              initialValue:
-                                                  user?.email ?? email,
+                                              initialValue: email,
                                               style: const TextStyle(
                                                   color: Colors.white),
                                               decoration:
                                                   textInputDecoration.copyWith(
-                                                hintText: 'Email',
+                                                hintText: 'Email / Username',
                                               ),
                                               validator: (val) => !isEmail(val!)
-                                                  ? 'Enter an Email'
+                                                  ? 'Enter an Email / Username'
                                                   : null,
                                               onChanged: (val) {
                                                 setState(() {
-                                                  email = val;
+                                                  email = val.trim();
                                                 });
                                               },
                                             ),
@@ -336,6 +339,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                                           setState(() {
                                                             loading = true;
                                                           });
+
+                                                          if (!isEmail(email)) {
+                                                            email = email +
+                                                                '@somemail.com';
+                                                          }
 
                                                           var result = await _auth
                                                               .changeEmail(
