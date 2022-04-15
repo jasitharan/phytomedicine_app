@@ -7,7 +7,7 @@ class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Auth? _userFromFirebaseUser(User? user) {
-    return user != null ? Auth(uid: user.uid) : null;
+    return user != null ? Auth(uid: user.uid, email: user.email!) : null;
   }
 
   // auth change user  stream
@@ -99,7 +99,11 @@ class AuthService {
         EmailAuthProvider.credential(email: oldEmail, password: password),
       );
       await authResult?.user?.updateEmail(newEmail);
-      return _userFromFirebaseUser(authResult?.user);
+      final result = await user?.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: newEmail, password: password),
+      );
+
+      return _userFromFirebaseUser(result?.user);
     } catch (e) {
       return e.toString().split('] ').last;
     }

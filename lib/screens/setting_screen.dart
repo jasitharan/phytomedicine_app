@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:phytomedicine_app/models/auth_model.dart';
 import 'package:phytomedicine_app/screens/login_screen.dart';
 import 'package:phytomedicine_app/services/auth.dart';
 import 'package:phytomedicine_app/shared/constants.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
+import 'package:phytomedicine_app/shared/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -16,13 +19,33 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKeyForSetting = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   bool loading = false;
   String email = '';
   String password = '';
+  String confirmPassword = '';
   String error = '';
   bool _isHidden = true;
+  bool _isInit = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        loading = true;
+      });
+      final user = Provider.of<Auth?>(context);
+      email = user?.email ?? '';
+      setState(() {
+        loading = false;
+      });
+    }
+
+    _isInit = false;
+
+    super.didChangeDependencies();
+  }
 
   void _togglePasswordView() {
     setState(() {
@@ -32,6 +55,8 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Auth?>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: loading
@@ -85,7 +110,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 child: Column(
                                   children: [
                                     Form(
-                                      key: _formKey,
+                                      key: _formKeyForSetting,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -123,6 +148,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 24.0, vertical: 16),
                                             child: TextFormField(
+                                              initialValue:
+                                                  user?.email ?? email,
                                               style: const TextStyle(
                                                   color: Colors.white),
                                               decoration:
@@ -247,13 +274,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              validator: (val) => val!.length <
-                                                      6
-                                                  ? 'Enter a password 6+ chars long'
+                                              validator: (val) => val! !=
+                                                      password
+                                                  ? 'Confirm Password Incorrect'
                                                   : null,
                                               onChanged: (val) {
                                                 setState(() {
-                                                  password = val;
+                                                  confirmPassword = val;
                                                 });
                                               },
                                               obscureText: _isHidden,
@@ -302,7 +329,41 @@ class _SettingScreenState extends State<SettingScreen> {
                                                                   const EdgeInsets
                                                                           .all(
                                                                       16.0)),
-                                                      onPressed: () async {},
+                                                      onPressed: () async {
+                                                        if (_formKeyForSetting
+                                                            .currentState!
+                                                            .validate()) {
+                                                          setState(() {
+                                                            loading = true;
+                                                          });
+
+                                                          var result = await _auth
+                                                              .changeEmail(
+                                                                  oldEmail: user!
+                                                                      .email,
+                                                                  newEmail:
+                                                                      email,
+                                                                  password:
+                                                                      password);
+
+                                                          setState(() {
+                                                            loading = false;
+                                                          });
+                                                          if (result is Auth) {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    getSnackBar(
+                                                                        'Successfully Updated'));
+                                                          } else {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    getSnackBar(
+                                                                        result));
+                                                          }
+                                                        }
+                                                      },
                                                       child: const Text(
                                                         'Save',
                                                         style: TextStyle(

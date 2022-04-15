@@ -1,4 +1,5 @@
 class Auth {
   final String uid;
-  Auth({required this.uid});
+  final String email;
+  Auth({required this.uid, required this.email});
 }

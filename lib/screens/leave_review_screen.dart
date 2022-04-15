@@ -310,7 +310,8 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                                                       setState(() {
                                                         loading = false;
                                                       });
-                                                    } else {
+                                                    } else if (dropdownvalue ==
+                                                        null) {
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(getSnackBar(
