@@ -346,16 +346,21 @@ class _SettingScreenState extends State<SettingScreen> {
                                                                   password:
                                                                       password);
 
-                                                          setState(() {
-                                                            loading = false;
-                                                          });
                                                           if (result is Auth) {
+                                                            setState(() {
+                                                              user.email =
+                                                                  email;
+                                                              loading = false;
+                                                            });
                                                             ScaffoldMessenger
                                                                     .of(context)
                                                                 .showSnackBar(
                                                                     getSnackBar(
                                                                         'Successfully Updated'));
                                                           } else {
+                                                            setState(() {
+                                                              loading = false;
+                                                            });
                                                             ScaffoldMessenger
                                                                     .of(context)
                                                                 .showSnackBar(

@@ -99,11 +99,7 @@ class AuthService {
         EmailAuthProvider.credential(email: oldEmail, password: password),
       );
       await authResult?.user?.updateEmail(newEmail);
-      final result = await user?.reauthenticateWithCredential(
-        EmailAuthProvider.credential(email: newEmail, password: password),
-      );
-
-      return _userFromFirebaseUser(result?.user);
+      return _userFromFirebaseUser(authResult?.user);
     } catch (e) {
       return e.toString().split('] ').last;
     }
