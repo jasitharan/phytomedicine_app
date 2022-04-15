@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phytomedicine_app/screens/pdfview_screen.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/widgets/item_tile.dart';
@@ -128,7 +129,11 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                       itemBuilder: (context, index) => ItemTile(
                                           handlerFunction: () {
                                             Navigator.pushNamed(context,
-                                                GuideBookScreen.routeName);
+                                                PDFViewScreen.routeName,
+                                                arguments: {
+                                                  'content': conditions[index]
+                                                      ['content']
+                                                });
                                           },
                                           title: conditions[index]['title'],
                                           imageName: 'conditions/' +
@@ -160,9 +165,13 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
 }
 
 List<Map> conditions = [
-  {'image': 'malaria', 'title': 'Malaria'},
-  {'image': 'tuberculosis', 'title': 'Tuberculosis'},
-  {'image': 'hiv', 'title': 'HIV/AIDS'},
-  {'image': 'heart_disease', 'title': 'Heart Disease'},
-  {'image': 'diabetes', 'title': 'Diabetese'}
+  {'image': 'malaria', 'title': 'Malaria', 'content': 'tuberculosis'},
+  {'image': 'tuberculosis', 'title': 'Tuberculosis', 'content': 'tuberculosis'},
+  {'image': 'hiv', 'title': 'HIV/AIDS', 'content': 'tuberculosis'},
+  {
+    'image': 'heart_disease',
+    'title': 'Heart Disease',
+    'content': 'tuberculosis'
+  },
+  {'image': 'diabetes', 'title': 'Diabetese', 'content': 'tuberculosis'}
 ];

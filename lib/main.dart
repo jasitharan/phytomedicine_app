@@ -6,6 +6,7 @@ import 'package:phytomedicine_app/screens/home_screen.dart';
 import 'package:phytomedicine_app/screens/leave_review_screen.dart';
 import 'package:phytomedicine_app/screens/login_screen.dart';
 import 'package:phytomedicine_app/screens/mobile_medical_clinic_screen.dart';
+import 'package:phytomedicine_app/screens/pdfview_screen.dart';
 import 'package:phytomedicine_app/screens/phytomedicine_screen.dart';
 import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/screens/signup_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (ctx) => const Wrapper(),
+          PDFViewScreen.routeName: (ctx) => const PDFViewScreen(),
           SignUpScreen.routeName: (ctx) => const SignUpScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
           HomeScreen.routeName: (ctx) => const HomeScreen(),
