@@ -55,11 +55,11 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: SizedBox(
-                        height: kToolbarHeight + 20,
-                        width: double.infinity,
+                    SizedBox(
+                      height: kToolbarHeight + 20,
+                      width: double.infinity,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

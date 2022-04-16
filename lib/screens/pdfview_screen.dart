@@ -51,11 +51,11 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: SizedBox(
-                        height: kToolbarHeight + 20,
-                        width: double.infinity,
+                    SizedBox(
+                      height: kToolbarHeight + 20,
+                      width: double.infinity,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
