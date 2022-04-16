@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/auth_model.dart';
 import 'package:phytomedicine_app/screens/login_screen.dart';
@@ -60,6 +61,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Auth?>(context);
+    final mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -78,7 +80,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
+                            padding: EdgeInsets.only(
+                                left:
+                                    mediaQuery.size.width <= 350 ? 8.0 : 16.0),
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -89,16 +93,15 @@ class _SettingScreenState extends State<SettingScreen> {
                                   color: Colors.white,
                                 )),
                           ),
-                          const FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Setting',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
-                            ),
+                          const AutoSizeText(
+                            'Setting',
+                            minFontSize: 20,
+                            maxFontSize: 24,
+                            style: TextStyle(color: Colors.white),
                           ),
-                          const SizedBox(
-                            width: 48,
+                          SizedBox(
+                            width: 32 +
+                                (mediaQuery.size.width <= 350 ? 8.0 : 16.0),
                           )
                         ],
                       ),

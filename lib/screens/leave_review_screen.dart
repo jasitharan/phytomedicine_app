@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,7 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Auth?>(context);
+    final mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -63,7 +65,9 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
+                            padding: EdgeInsets.only(
+                                left:
+                                    mediaQuery.size.width <= 350 ? 8.0 : 16.0),
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -74,16 +78,16 @@ class _LeaveReviewScreenState extends State<LeaveReviewScreen> {
                                   color: Colors.white,
                                 )),
                           ),
-                          const FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Leave a Review',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
-                            ),
+                          const AutoSizeText(
+                            'Leave a Review',
+                            minFontSize: 20,
+                            maxFontSize: 24,
+                            style: TextStyle(color: Colors.white),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
+                            padding: EdgeInsets.only(
+                                right:
+                                    mediaQuery.size.width <= 350 ? 8.0 : 16.0),
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.pushNamed(

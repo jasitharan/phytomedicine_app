@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/screens/guidebook_screen.dart';
 import 'package:phytomedicine_app/screens/leave_review_screen.dart';
@@ -38,13 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           const SizedBox(),
-                          const FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Global Medical Guide',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
-                            ),
+                          const AutoSizeText(
+                            'Global Medical Guide',
+                            minFontSize: 20,
+                            maxFontSize: 24,
+                            style: TextStyle(color: Colors.white),
                           ),
                           IconButton(
                               onPressed: () {

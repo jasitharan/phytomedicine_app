@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
@@ -44,6 +45,7 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
   @override
   Widget build(BuildContext context) {
     final conditions = Provider.of<Conditions>(context);
+    final mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -61,44 +63,40 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_back,
-                                    size: 32,
-                                    color: Colors.white,
-                                  )),
-                            ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left:
+                                    mediaQuery.size.width <= 350 ? 8.0 : 16.0),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  size: 32,
+                                  color: Colors.white,
+                                )),
                           ),
-                          const FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Global Medical Guide',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
-                            ),
+                          const AutoSizeText(
+                            'Global Medical Guide',
+                            minFontSize: 20,
+                            maxFontSize: 24,
+                            style: TextStyle(color: Colors.white),
                           ),
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 16.0),
-                              child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, SettingScreen.routeName);
-                                  },
-                                  icon: const Icon(
-                                    Icons.settings,
-                                    size: 32,
-                                    color: Colors.white,
-                                  )),
-                            ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                right:
+                                    mediaQuery.size.width <= 350 ? 8.0 : 16.0),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, SettingScreen.routeName);
+                                },
+                                icon: const Icon(
+                                  Icons.settings,
+                                  size: 32,
+                                  color: Colors.white,
+                                )),
                           )
                         ],
                       ),
