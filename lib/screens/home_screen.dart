@@ -33,30 +33,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: kToolbarHeight + 20,
                       width: double.infinity,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const SizedBox(),
-                            const Text(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const SizedBox(),
+                          const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
                               'Global Medical Guide',
                               style:
                                   TextStyle(fontSize: 24, color: Colors.white),
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, SettingScreen.routeName);
-                                },
-                                icon: const Icon(
-                                  Icons.settings,
-                                  size: 32,
-                                  color: Colors.white,
-                                ))
-                          ],
-                        ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, SettingScreen.routeName);
+                              },
+                              icon: const Icon(
+                                Icons.settings,
+                                size: 32,
+                                color: Colors.white,
+                              ))
+                        ],
                       ),
                     ),
                     Expanded(
