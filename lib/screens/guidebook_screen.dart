@@ -54,11 +54,11 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: kToolbarHeight + 20,
-                      width: double.infinity,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SizedBox(
+                        height: kToolbarHeight + 20,
+                        width: double.infinity,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
