@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:phytomedicine_app/screens/pdfview_screen.dart';
 import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/services/conditions.dart';
@@ -103,8 +104,19 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                             ),
                             child: ScrollConfiguration(
                               behavior: CustomScroll(),
-                              child: SingleChildScrollView(
-                                child: Column(
+                              child: LazyLoadScrollView(
+                                scrollOffset: 150,
+                                onEndOfPage: () async {
+                                  final result =
+                                      await conditions.loadMoreConditions(
+                                          searchTextController.text);
+
+                                  if (mounted && result != null) {
+                                    setState(() {});
+                                  }
+                                },
+                                child: ListView(
+                                  shrinkWrap: true,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -170,10 +182,10 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                             ),
                                           )
                                         : ListView.builder(
-                                            itemCount:
-                                                conditions.conditions.length,
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                                conditions.conditions.length,
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) =>
                                                 ItemTile(

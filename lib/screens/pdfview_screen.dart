@@ -93,7 +93,8 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                 ? const Center(
                                     child: Text(
                                       'Guide not found',
-                                      style: TextStyle(fontSize: 24),
+                                      style: TextStyle(
+                                          fontSize: 24, color: Colors.white),
                                     ),
                                   )
                                 : PDFView(

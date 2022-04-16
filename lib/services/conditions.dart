@@ -49,7 +49,8 @@ class Conditions {
   Future loadMoreConditions(String condition) async {
     try {
       final querySnapshot = await conditionsCollection
-          .where('condition', isEqualTo: condition)
+          .where('title', isGreaterThanOrEqualTo: condition.capitalize())
+          .where('title', isLessThan: condition.capitalize() + 'z')
           .orderBy('title')
           .startAfterDocument(_lastDocument!)
           .limit(20)
@@ -60,7 +61,6 @@ class Conditions {
 
         String imageName = await FireStorageService.loadImage(
             '${document['image']}', '/conditions');
-
         document['image'] = imageName;
         if (conditions
             .where((element) => element.title == document['title'])
@@ -74,7 +74,7 @@ class Conditions {
       return 1;
     } catch (e) {
       // print('Getting searh products error');
-      //  print(e.toString());
+      // print(e.toString());
       return null;
     }
   }
