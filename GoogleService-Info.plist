@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>877595379363-b0n8avjahmcbi1vna62n8r33t6h4b7pc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.877595379363-b0n8avjahmcbi1vna62n8r33t6h4b7pc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>877595379363-2o9mimknlvmbsh2gs41hb9onbdi2mv34.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDbPZJ7sLUwSIgYSubv2HzwvqkmpxmTpqk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>877595379363</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kotc.phytomedicine</string>
+	<key>PROJECT_ID</key>
+	<string>phytomedicine-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>phytomedicine-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:877595379363:ios:17a8d84421f6257fd6a116</string>
+</dict>
+</plist>
