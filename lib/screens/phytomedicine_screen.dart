@@ -29,37 +29,41 @@ class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
                     SizedBox(
                       height: kToolbarHeight + 20,
                       width: double.infinity,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
-                          ),
-                          const Text(
-                            'Global Medical Guide',
-                            style: TextStyle(fontSize: 24, color: Colors.white),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.settings,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
-                          )
-                        ],
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    size: 32,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            const Text(
+                              'Global Medical Guide',
+                              style:
+                                  TextStyle(fontSize: 24, color: Colors.white),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.settings,
+                                    size: 32,
+                                    color: Colors.white,
+                                  )),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(

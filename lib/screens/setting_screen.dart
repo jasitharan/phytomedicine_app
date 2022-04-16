@@ -73,30 +73,34 @@ class _SettingScreenState extends State<SettingScreen> {
                     SizedBox(
                       height: kToolbarHeight + 20,
                       width: double.infinity,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
-                          ),
-                          const Text(
-                            'Setting',
-                            style: TextStyle(fontSize: 24, color: Colors.white),
-                          ),
-                          const SizedBox(
-                            width: 48,
-                          )
-                        ],
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    size: 32,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                            const Text(
+                              'Setting',
+                              style:
+                                  TextStyle(fontSize: 24, color: Colors.white),
+                            ),
+                            const SizedBox(
+                              width: 48,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
