@@ -61,17 +61,20 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    size: 32,
+                                    color: Colors.white,
+                                  )),
+                            ),
                           ),
                           const FittedBox(
                             fit: BoxFit.scaleDown,
@@ -81,18 +84,21 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                   TextStyle(fontSize: 24, color: Colors.white),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, SettingScreen.routeName);
-                                },
-                                icon: const Icon(
-                                  Icons.settings,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, SettingScreen.routeName);
+                                  },
+                                  icon: const Icon(
+                                    Icons.settings,
+                                    size: 32,
+                                    color: Colors.white,
+                                  )),
+                            ),
                           )
                         ],
                       ),
