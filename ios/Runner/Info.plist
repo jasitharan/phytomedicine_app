@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>io.flutter.embedded_views_preview</key>
-	</true>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
