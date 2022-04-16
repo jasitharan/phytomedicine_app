@@ -30,7 +30,7 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>?;
 
-      var url = 'pdfs/${args!['content'].toString()}.pdf';
+      var url = 'pdfs/${args!['content'].toString()}';
       file = await PDFApi.loadFirebase(url);
       setState(() {
         loading = false;
@@ -89,20 +89,27 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                   // topLeft: Radius.circular(32.0),
                                   topRight: Radius.circular(45.0)),
                             ),
-                            child: PDFView(
-                              filePath: file!.path,
+                            child: file == null
+                                ? const Center(
+                                    child: Text(
+                                      'Guide not found',
+                                      style: TextStyle(fontSize: 24),
+                                    ),
+                                  )
+                                : PDFView(
+                                    filePath: file!.path,
 
-                              // autoSpacing: false,
-                              // swipeHorizontal: true,
-                              // pageSnap: false,
-                              // pageFling: false,
-                              onRender: (pages) =>
-                                  setState(() => this.pages = pages!),
-                              onViewCreated: (controller) =>
-                                  setState(() => this.controller = controller),
-                              onPageChanged: (indexPage, _) =>
-                                  setState(() => this.indexPage = indexPage!),
-                            )))
+                                    // autoSpacing: false,
+                                    // swipeHorizontal: true,
+                                    // pageSnap: false,
+                                    // pageFling: false,
+                                    onRender: (pages) =>
+                                        setState(() => this.pages = pages!),
+                                    onViewCreated: (controller) => setState(
+                                        () => this.controller = controller),
+                                    onPageChanged: (indexPage, _) => setState(
+                                        () => this.indexPage = indexPage!),
+                                  )))
                   ],
                 ),
                 decoration: const BoxDecoration(

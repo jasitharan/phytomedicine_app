@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ItemTile extends StatelessWidget {
   final Function handlerFunction;
   final String imageName;
   final String title;
+  final bool fromInternet;
   const ItemTile(
       {Key? key,
       required this.handlerFunction,
       required this.title,
-      required this.imageName})
+      required this.imageName,
+      this.fromInternet = false})
       : super(key: key);
 
   @override
@@ -27,7 +30,14 @@ class ItemTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image(image: AssetImage('assets/images/$imageName.png')),
+                fromInternet
+                    ? CachedNetworkImage(
+                        imageUrl: imageName,
+                        errorWidget: (context, url, error) => const Image(
+                            image:
+                                AssetImage('assets/images/conditions/hiv.png')),
+                      )
+                    : Image(image: AssetImage('assets/images/$imageName.png')),
                 SizedBox(
                   width: 150,
                   child: Text(

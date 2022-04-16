@@ -12,6 +12,7 @@ import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/screens/signup_screen.dart';
 import 'package:phytomedicine_app/screens/wrapper.dart';
 import 'package:phytomedicine_app/services/auth.dart';
+import 'package:phytomedicine_app/services/conditions.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -29,25 +30,30 @@ class MyApp extends StatelessWidget {
     return StreamProvider<Auth?>.value(
       value: AuthService().user,
       initialData: null,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: MultiProvider(
+        providers: [
+          Provider.value(value: Conditions()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          routes: {
+            '/': (ctx) => const Wrapper(),
+            PDFViewScreen.routeName: (ctx) => const PDFViewScreen(),
+            SignUpScreen.routeName: (ctx) => const SignUpScreen(),
+            LoginScreen.routeName: (ctx) => const LoginScreen(),
+            HomeScreen.routeName: (ctx) => const HomeScreen(),
+            GuideBookScreen.routeName: (ctx) => const GuideBookScreen(),
+            LeaveReviewScreen.routeName: (ctx) => const LeaveReviewScreen(),
+            MobileMedicalClinicScreen.routeName: (ctx) =>
+                const MobileMedicalClinicScreen(),
+            PhytoMedicineScreen.routeName: (ctx) => const PhytoMedicineScreen(),
+            SettingScreen.routeName: (ctx) => const SettingScreen()
+          },
         ),
-        routes: {
-          '/': (ctx) => const Wrapper(),
-          PDFViewScreen.routeName: (ctx) => const PDFViewScreen(),
-          SignUpScreen.routeName: (ctx) => const SignUpScreen(),
-          LoginScreen.routeName: (ctx) => const LoginScreen(),
-          HomeScreen.routeName: (ctx) => const HomeScreen(),
-          GuideBookScreen.routeName: (ctx) => const GuideBookScreen(),
-          LeaveReviewScreen.routeName: (ctx) => const LeaveReviewScreen(),
-          MobileMedicalClinicScreen.routeName: (ctx) =>
-              const MobileMedicalClinicScreen(),
-          PhytoMedicineScreen.routeName: (ctx) => const PhytoMedicineScreen(),
-          SettingScreen.routeName: (ctx) => const SettingScreen()
-        },
       ),
     );
   }

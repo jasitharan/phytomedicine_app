@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:phytomedicine_app/screens/pdfview_screen.dart';
 import 'package:phytomedicine_app/screens/setting_screen.dart';
+import 'package:phytomedicine_app/services/conditions.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/widgets/item_tile.dart';
+import 'package:provider/provider.dart';
 
 class GuideBookScreen extends StatefulWidget {
   const GuideBookScreen({Key? key}) : super(key: key);
@@ -17,9 +20,30 @@ class GuideBookScreen extends StatefulWidget {
 class _GuideBookScreenState extends State<GuideBookScreen> {
   bool loading = false;
   final searchTextController = TextEditingController();
+  List<Map> conditions = [];
+  bool _isInit = true;
+  bool searchLoading = false;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    if (_isInit) {
+      setState(() {
+        loading = true;
+      });
+      final conditions = Provider.of<Conditions>(context);
+      await conditions.getConditions('');
+      setState(() {
+        loading = false;
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final conditions = Provider.of<Conditions>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: loading
@@ -90,7 +114,16 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                           right: 16),
                                       child: TextField(
                                         controller: searchTextController,
-                                        onChanged: (_) async {},
+                                        onChanged: (_) async {
+                                          setState(() {
+                                            searchLoading = true;
+                                          });
+                                          await conditions.getConditions(
+                                              searchTextController.text);
+                                          setState(() {
+                                            searchLoading = false;
+                                          });
+                                        },
                                         style: const TextStyle(
                                             color: Colors.white70),
                                         // autofocus: true,
@@ -125,24 +158,46 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                                     255, 255, 255, 0.31))),
                                       ),
                                     ),
-                                    ListView.builder(
-                                      itemCount: conditions.length,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index) => ItemTile(
-                                          handlerFunction: () {
-                                            Navigator.pushNamed(context,
-                                                PDFViewScreen.routeName,
-                                                arguments: {
-                                                  'content': conditions[index]
-                                                      ['content']
-                                                });
-                                          },
-                                          title: conditions[index]['title'],
-                                          imageName: 'conditions/' +
-                                              conditions[index]['image']),
-                                    ),
+                                    searchLoading
+                                        ? SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.5,
+                                            child: const Center(
+                                              child: SpinKitFadingCircle(
+                                                  color: Colors.white),
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            itemCount:
+                                                conditions.conditions.length,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) =>
+                                                ItemTile(
+                                                    fromInternet: true,
+                                                    handlerFunction: () {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          PDFViewScreen
+                                                              .routeName,
+                                                          arguments: {
+                                                            'content':
+                                                                conditions
+                                                                    .conditions[
+                                                                        index]
+                                                                    .content
+                                                          });
+                                                    },
+                                                    title: conditions
+                                                        .conditions[index]
+                                                        .title,
+                                                    imageName: conditions
+                                                        .conditions[index]
+                                                        .image),
+                                          ),
                                     const SizedBox(
                                       height: 15,
                                     )
@@ -167,15 +222,3 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
     );
   }
 }
-
-List<Map> conditions = [
-  {'image': 'malaria', 'title': 'Malaria', 'content': 'tuberculosis'},
-  {'image': 'tuberculosis', 'title': 'Tuberculosis', 'content': 'tuberculosis'},
-  {'image': 'hiv', 'title': 'HIV/AIDS', 'content': 'tuberculosis'},
-  {
-    'image': 'heart_disease',
-    'title': 'Heart Disease',
-    'content': 'tuberculosis'
-  },
-  {'image': 'diabetes', 'title': 'Diabetese', 'content': 'tuberculosis'}
-];
