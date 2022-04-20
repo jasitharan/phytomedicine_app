@@ -41,7 +41,7 @@ class Conditions {
 
       return 1;
     } catch (e) {
-      // print(e.toString());
+      print(e.toString());
       return null;
     }
   }

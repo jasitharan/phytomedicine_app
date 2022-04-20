@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:phytomedicine_app/models/condition_model.dart';
+import 'package:phytomedicine_app/models/step_model.dart';
+import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'dart:io';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:phytomedicine_app/api/pdf_api.dart';
+import 'package:phytomedicine_app/widgets/guide_expansion_tile.dart';
 
 class PDFViewScreen extends StatefulWidget {
   const PDFViewScreen({Key? key}) : super(key: key);
@@ -20,6 +27,7 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
   bool _isInit = true;
   File? file;
   bool loading = false;
+  late List<StepModel> stepModel;
 
   @override
   Future<void> didChangeDependencies() async {
@@ -27,11 +35,37 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
       setState(() {
         loading = true;
       });
-      final args =
-          ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>?;
 
-      var url = 'pdfs/${args!['content'].toString()}';
+      //${args!['content'].toString()}
+      var url = 'jsons/sample.json';
       file = await PDFApi.loadFirebase(url);
+      // print(file);
+
+      dynamic myFunc(StepModel? step, StepModel? parent) {
+        if (step == null) {
+          return;
+        }
+
+        print('parent ${parent?.title} + ${step.title}');
+
+        if (step.steps != null) {
+          for (StepModel i in step.steps!) {
+            myFunc(i, step);
+          }
+        }
+
+        return;
+      }
+
+      Future<dynamic> readJson() async {
+        final String response = await rootBundle.loadString(file!.path);
+        final data = await json.decode(response);
+        //print(data);
+        stepModel = Condition.fromJson(data[1]).steps!;
+      }
+
+      await readJson();
+
       setState(() {
         loading = false;
       });
@@ -42,6 +76,9 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>?;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: loading
@@ -101,19 +138,60 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                           fontSize: 24, color: Colors.white),
                                     ),
                                   )
-                                : PDFView(
-                                    filePath: file!.path,
-
-                                    // autoSpacing: false,
-                                    // swipeHorizontal: true,
-                                    // pageSnap: false,
-                                    // pageFling: false,
-                                    onRender: (pages) =>
-                                        setState(() => this.pages = pages!),
-                                    onViewCreated: (controller) => setState(
-                                        () => this.controller = controller),
-                                    onPageChanged: (indexPage, _) => setState(
-                                        () => this.indexPage = indexPage!),
+                                : ScrollConfiguration(
+                                    behavior: CustomScroll(),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.all(12.0),
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/banner.png')),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 16.0,
+                                                top: 24,
+                                                bottom: 22),
+                                            child: Text(
+                                              args!['name'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 20,
+                                                  color: Color.fromRGBO(
+                                                      26, 183, 168, 1)),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: ListView.builder(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: stepModel.length,
+                                                itemBuilder: (ctx, i) {
+                                                  return GuideExpansionTile(
+                                                      title:
+                                                          stepModel[i].title ??
+                                                              '',
+                                                      leadingText: '${i + 1}.',
+                                                      childs:
+                                                          stepModel[i].steps);
+                                                }),
+                                          ),
+                                          const SizedBox(
+                                            height: 50,
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   )))
                   ],
                 ),

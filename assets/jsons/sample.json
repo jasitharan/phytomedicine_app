@@ -1,0 +1,108 @@
+[
+    {
+        "image": "malaria.png",
+        "title": "Malaria",
+        "steps": null
+    },
+    {
+        "image": "tuberculosis.png",
+        "title": "Tuberculosis",
+        "steps": [
+            {
+                "title": "Step 1: Introduction",
+                "image": null,
+                "steps": [
+                    {
+                        "title": "Name",
+                        "image": null,
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "Scientific: Tuberculosis",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Common: TB",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Description: Tuberculosis Elimination (cdc.gov)",
+                        "image": null,
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "highly transmissible airborne infection in humans caused by bacteria",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "typically targets lungs. Brain, kidney, spine can also be affected",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "fatal if left untreated",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "curable and preventable",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Statisticsdiabetes_tb.pdf (who.int)",
+                        "image": null,
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "In 2014, 9.6 million individuals became infected with tuberculosis and 1.5 million died of tuberculosis, with 0.4 million of them tested HIV-positive",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "1 in 3 people in this world experiences latent TB",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "about a 10% lifetime chance of contracting tuberculosis if infected with TB bacteria. However, the risk is greater in immunocompromised individuals (e.g, HIV and diabetic patients)",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Tanzania",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "among top 30 countries in the world with highest burden of TB",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "The prevalence of tuberculosis has decreased from 306 per 100,000 in 2015 to 253 per 100,000 in 2018 (by 17%). Tanzania is now one of the seven high-burden countries with TB that are determined to meet the End TB 2020 Incidence rationale, with TB mortality falling by 19 percent from 58 per 100,000 in 2014 to 40 per 100,000 in 2018.",
+                                        "steps": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "image": null,
+                "title": "Step 2: Emergency Treatment",
+                "steps": null
+            },
+            {
+                "image": null,
+                "title": "Step 3: Diagnosis",
+                "steps": null
+            }
+        ]
+    }
+]

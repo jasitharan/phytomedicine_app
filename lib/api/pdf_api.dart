@@ -26,7 +26,7 @@ class PDFApi {
   static Future<File?> pickFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf'],
+      allowedExtensions: ['json'],
     );
 
     if (result == null) return null;

@@ -204,11 +204,10 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                                           PDFViewScreen
                                                               .routeName,
                                                           arguments: {
-                                                            'content':
-                                                                conditions
-                                                                    .conditions[
-                                                                        index]
-                                                                    .content
+                                                            'name': conditions
+                                                                .conditions[
+                                                                    index]
+                                                                .title
                                                           });
                                                     },
                                                     title: conditions

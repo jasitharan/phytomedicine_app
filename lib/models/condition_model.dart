@@ -1,20 +1,22 @@
+import 'package:phytomedicine_app/models/step_model.dart';
+
 class Condition {
   final String title;
   final String image;
-  final String content;
+  final List<StepModel>? steps;
 
   const Condition(
-      {required this.title, required this.image, required this.content});
+      {required this.title, required this.image, required this.steps});
 
   Map<String, dynamic> toJson() => {
         'title': title,
         'image': image,
-        'content': content,
+        'steps': steps,
       };
 
   factory Condition.fromJson(Map<String, dynamic> json) => Condition(
         title: json["title"] ?? '',
         image: json['image'] ?? '',
-        content: json['content'] ?? '',
+        steps: stepFromJson(json['steps']),
       );
 }
