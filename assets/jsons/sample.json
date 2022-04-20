@@ -1,9 +1,5 @@
 [
-    {
-        "image": "malaria.png",
-        "title": "Malaria",
-        "steps": null
-    },
+    
     {
         "image": "tuberculosis.png",
         "title": "Tuberculosis",
@@ -96,13 +92,474 @@
             {
                 "image": null,
                 "title": "Step 2: Emergency Treatment",
-                "steps": null
+                "steps": [
+                    {
+                        "image": null,
+                        "title": "What to do when waiting for professional help",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "avoid congregate settings, isolate at home, and frequently ventilate the room simply by opening windows or turning on fans",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "use tissue to contain droplets when sneezing or coughing. Throw it away immediately after",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "wear a mask to reduce the risk of transmission",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "image": "tuberculosis_pills.png",
+                        "title": "Imagestuberculosis antibiotics - Bing images",
+                        "steps": null
+                    }
+
+                ]
             },
             {
                 "image": null,
                 "title": "Step 3: Diagnosis",
-                "steps": null
+                "steps": [
+                    {
+                        "image": null,
+                        "title": "Warning Signs",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "Chronic coughing for more than 3 weeks with blood and mucus",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Chest pain when coughing",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "fever",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "fatigue",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "image": null,
+                        "title": "Common SymptomsSigns & Symptoms | Basic TB Facts | TB | CDC;  Tuberculosis - Symptoms and causes - Mayo Clinic",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "Chronic coughing for more than 3 weeks with blood and mucus",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Chest pain when coughing",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Loss of appetite and unexplained weight loss",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Fatigue",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Fever",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Night sweats",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "image": "tuberculosis_cough.png",
+                        "title": "Imagestuberculosis poster - Bing images",
+                        "steps": null
+                    }
+
+                ]
+            },
+            {
+                "image": null,
+                "title": "Step 4: Common causes Tuberculosis - Symptoms and causes - Mayo Clinic",
+                "steps": [
+                    {
+                        "image": null,
+                        "title": "Mycobacterium tuberculosis",
+                        "steps": null
+                    },
+                    {
+                        "image": null,
+                        "title": "airborne disease - microscopic droplets passing in the air from person to person through sneeze, cough, and communication",
+                        "steps": null
+                    },
+                    {
+                        "image": null,
+                        "title": "Tuberculosis vaccine development: from classic to clinical candidates (nih.gov)prevalence of drug-resistant strains, late diagnosis as a result of latent infection, poor management of public health facilities, and population movements",
+                        "steps": null
+                    }
+                ]
+            },
+            {
+                "image": null,
+                "title": "Step 5: Preventative care",
+                "steps": [
+                    {
+                        "image": null,
+                        "title": "Family historyHuman genetics of tuberculosis: a long and winding road (nih.gov)",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "genetic polymorphism advances infection to TB diseaseHost genetics and tuberculosis: Theory of genetic polymorphism and tuberculosis - PubMed (nih.gov)",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "TB related phenotypes: resistance to M. tuberculosis infection and TB development in children due to gene mutation. Limited data on how adult genetic makeup affects TB outcomes",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Genes and Genetics of Tuberculosis (juniperpublishers.com)Several studies showed that many genes were responsible for the infection outcome. However, it is uncertain how they interact.",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "variation in clinical presentation may be a result of different host genetic compositionGenes and Genetics of Tuberculosis (juniperpublishers.com)",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "genetic susceptibility to TB has been identifiedHost genetics and tuberculosis: Theory of genetic polymorphism and tuberculosis - PubMed (nih.gov)",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "TB is an airborne disease and does not pass down through generations. However, there is evidence suggesting there are certain genes express susceptibility to TB",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "image": null,
+                        "title": "Tests",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "Tuberculosis | Complementary and Alternative Medicine | St. Luke's Hospital (stlukes-stl.com)if you have risk factors, test every 6 month → early detection to develop an effective treatment plan",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "groups of people: TB tests are recommended if you:Tuberculosis: Systematic screening (who.int)",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "come into contact with a TB patient",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "are immunocompromised (i.e, HIV)",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "experience common symptoms of TB",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "come from areas where TB is widespread (i.e,  Latin America, the Caribbean, Africa, Asia, Eastern Europe, and Russia)",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "live or work in areas where TB is prevalent but have difficulty access to health centers  (i.e, homeless shelters, prison or jails, or some nursing homes)",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "consume illegal and addictive drugs",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "were criminals",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "were exposed to silica (generally due to mining activities)",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "have high risk factors of developing TB disease",
+                                        "steps": null
+                                    }
+                                ]
+                            },
+                            {
+                                "image": null,
+                                "title": "ImmunizationsInvesting in new TB vaccines: It’s time to end the century-long wait! (who.int)",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "BCG vaccines are made of a weakened strain of bacteria known as Mycobacterium bovis which causes TB in bovines to fight against TB in humans. Only approved TB vaccine at present - moderate immunization for newbornsTuberculosis vaccine development: from classic to clinical candidates (nih.gov)",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "effects of BCG vaccines vary by adults. no effective vaccine for adults at present",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "A Look at Each Vaccine: Tuberculosis Vaccine | Children's Hospital of Philadelphia (chop.edu) Children who share their home with a TB patients but are unable to access antibiotics or contract a highly antibiotic resistant strain are recommended to have BCG vaccines",
+                                        "steps": null
+                                    }
+                                ]
+                            },
+                            {
+                                "image": null,
+                                "title": "Blood tests (infection only)Fact Sheets | Testing & Diagnosis | Testing for Tuberculosis (TB) | TB | CDC",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "TB infection can be identified by an Interferon Gamma Release Assay (IGRA) blood test",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "Blood samples are taken to the laboratory in a tube and tested for infection. Results are then delivered to health care providers",
+                                        "steps": null
+                                    }
+                                ]
+                            },
+                            {
+                                "image": null,
+                                "title": "Screening for disease onlyTuberculosis: Systematic screening (who.int)",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "community screening in households, healthcare facilities, workplace, and other authorized institutionsTuberculosis: Systematic screening (who.int)",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "symptom examination, chest radiography, medical history, and other laboratory tests  (i,e, sputum test) Fact Sheets | Testing & Diagnosis | Testing for Tuberculosis (TB) | TB | CDC;  Tuberculosis: Systematic screening (who.int); Tuberculosis - Diagnosis and treatment - Mayo Clinic",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "implementation of community screening, particularly in areas with high risk of TB transmission and limited access to health centers (i.e, marginalized groups) may reduce the rate of TB infection if conducted sufficiently and thoroughlyTuberculosis: Systematic screening (who.int)",
+                                        "steps": null
+                                    }
+                                ]
+                            },
+                            {
+                                "image": null,
+                                "title": "Lifestyle changes Living With TB and Avoiding Complications | Everyday Health",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "direct causes: Impact of lifestyle on tuberculosis - LEUNG - 2008 - Respirology - Wiley Online Library",
+                                        "steps": [
+                                            {
+                                                "image": null,
+                                                "title": "reduce smoking",
+                                                "steps": null
+                                            },
+                                            {
+                                                "image": null,
+                                                "title": "ventilate indoor settings frequently and reduce exposure to air pollution",
+                                                "steps": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "indirect: keep immune system strong (risk factors)Living With TB and Avoiding Complications | Everyday Health;   Impact of lifestyle on tuberculosis - LEUNG - 2008 - Respirology - Wiley Online Library",
+                                        "steps": [
+                                            {
+                                                "image": null,
+                                                "title": "HIV and diabetes preventive care",
+                                                "steps": null
+                                            },
+                                            {
+                                                "image": null,
+                                                "title": "develop nutritional eating diets because malnutrition is associated with higher risk of TB in developing countries",
+                                                "steps": null
+                                            }
+
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "image": null,
+                "title": "Step 6: Long-term treatment: provided based on drug-condition and drug-drug interactions and medical history Treatment for TB Disease | Treatment | TB | CDC",
+                "steps": [
+                    {
+                        "image": null,
+                        "title": "Best option(s): multiple antibiotic doses over 4-9 monthsTreatment for TB Disease | Treatment | TB | CDC;;  Tuberculosis and its Treatment: An Overview - PubMed (nih.gov)",
+                        "steps": null
+                    },
+                    {
+                        "image": null,
+                        "title": "Access:",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "Among 500 million people who developed TB disease in 2019, only 1 in 3 were administered medical treatmentGLOBAL TUBERCULOSIS REPORT 2019 (who.int)",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "those who received treatment often delayed until later stage of disease progressionBarriers to access - TB Alert",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "prescription from healthcare providers",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "drug-resistance becomes a public health concernsGLOBAL TUBERCULOSIS REPORT 2019 (who.int)",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "challenges:",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "financial constraints (i.e, work schedule disruption and high transportation expenses to access central healthcare facilities) SciELO - Brazil - Barreiras econômicas na acessibilidade ao tratamento da tuberculose em Ribeirão Preto - São Paulo Barreiras econômicas na acessibilidade ao tratamento da tuberculose em Ribeirão Preto - São Paulo",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "Assessing the Consequences of Stigma for Tuberculosis Patients in Urban Zambia (plos.org). Stigma due to knowledge gap against TB patients, particularly in children and women - delay diagnosis and treatmentTuberculosis Stigma: Assessing Tuberculosis Knowledge, Attitude and Preventive Practices in Surulere, Lagos, Nigeria (nih.gov) ",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "policy paper final.qxd (who.int)healthcare providers presents gaps of knowledge, ability to diagnose, and communicate with TB patients. Poor infrastructure, medical equipment and anti-TB drug shortage, and lack of trained staff to detect TB at an early stage as a result of limited funding resources",
+                                        "steps": null
+                                    }
+                                ]
+                            },
+                            {
+                                "image": null,
+                                "title": "How to track",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "take antibiotics as instructed and follow a routine, even if you feel better and your symptoms have gone away. Forgetting to take medicine may lead to antibiotic resistance and worsen the infection. Tell your doctor if you forgot to take antibiotics on a regular schedule and with a right amount of prescription",
+                                        "steps": null
+                                    },
+                                    {
+                                        "image": null,
+                                        "title": "discuss with healthcare providers on your lifestyle behaviors and medical history to evaluate risk factors",
+                                        "steps": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "image": null,
+                "title": "Step 7: Phytomedicine",
+                "steps": [
+                    {
+                        "image": null,
+                        "title": "Common myths",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "can be used as an alternative and does not need to couple with conventional medical treatment to completely treat TB",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "Tuberculosis | Complementary and Alternative Medicine | St. Luke's Hospital (stlukes-stl.com)",
+                                "steps": null
+                            }
+                        ]
+                    },
+                    {
+                        "image": null,
+                        "title": "Potential toxicityPhytochemical screening, antimycobacterial activity and acute toxicity of crude extracts of selected medicinal plant species used locally in the treatment of tuberculosis in Uganda (nih.gov)",
+                        "steps": [
+                            {
+                                "image": null,
+                                "title": "A. coriaria (stem bark) caused one death, up to 4 hours of exhaustion in all participants, and excessive urination and defecation",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "A. coriaria and Z. leprieurii (root bark) treated groups caused an increase in respiration rate",
+                                "steps": null
+                            },
+                            {
+                                "image": null,
+                                "title": "A. hockii (stem bark) caused excessive urination",
+                                "steps": [
+                                    {
+                                        "image": null,
+                                        "title": "How to couple with Western medicineClinical Evidence on the Use of Chinese Herbal Medicine for Acute Infectious Diseases: An Overview of Systematic Reviews (nih.gov);   Traditional Chinese medicine combined with western medicine for the treatment of secondary pulmonary tuberculosis: A PRISMA-compliant meta-analysis - PubMed (nih.gov)",
+                                        "steps": [
+                                            {
+                                                "image": null,
+                                                "title": "herbal treatments coupled with chemotherapy considerably improve the overall health of TB patients who developed multi-drug-resistant TB and lowers adverse patient events compared to chemotherapy only",
+                                                "steps": null
+                                            }
+                                            
+                                        ]
+                                    },
+                                    {
+                                        "image": "tree.png",
+                                        "title": "Images Zanthoxylum leprieurii - Bing images",
+                                        "steps": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
+        ]
+    },
+    {
+        "image": "malaria.png",
+        "title": "Malaria",
+        "steps": [
+
         ]
     }
 ]

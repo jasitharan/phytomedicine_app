@@ -1,14 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:phytomedicine_app/models/condition_model.dart';
-import 'package:phytomedicine_app/models/step_model.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
-import 'dart:io';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:phytomedicine_app/api/pdf_api.dart';
 import 'package:phytomedicine_app/widgets/guide_expansion_tile.dart';
 
 class PDFViewScreen extends StatefulWidget {
@@ -22,62 +16,14 @@ class PDFViewScreen extends StatefulWidget {
 
 class _PDFViewScreenState extends State<PDFViewScreen> {
   late PDFViewController controller;
-  int pages = 0;
-  int indexPage = 0;
-  bool _isInit = true;
-  File? file;
   bool loading = false;
-  late List<StepModel> stepModel;
-
-  @override
-  Future<void> didChangeDependencies() async {
-    if (_isInit) {
-      setState(() {
-        loading = true;
-      });
-
-      //${args!['content'].toString()}
-      var url = 'jsons/sample.json';
-      file = await PDFApi.loadFirebase(url);
-      // print(file);
-
-      dynamic myFunc(StepModel? step, StepModel? parent) {
-        if (step == null) {
-          return;
-        }
-
-        print('parent ${parent?.title} + ${step.title}');
-
-        if (step.steps != null) {
-          for (StepModel i in step.steps!) {
-            myFunc(i, step);
-          }
-        }
-
-        return;
-      }
-
-      Future<dynamic> readJson() async {
-        final String response = await rootBundle.loadString(file!.path);
-        final data = await json.decode(response);
-        //print(data);
-        stepModel = Condition.fromJson(data[1]).steps!;
-      }
-
-      await readJson();
-
-      setState(() {
-        loading = false;
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<dynamic, dynamic>?;
+
+    Condition condition = args!['condition'] as Condition;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -130,69 +76,57 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                   // topLeft: Radius.circular(32.0),
                                   topRight: Radius.circular(45.0)),
                             ),
-                            child: file == null
-                                ? const Center(
-                                    child: Text(
-                                      'Guide not found',
-                                      style: TextStyle(
-                                          fontSize: 24, color: Colors.white),
+                            child: ScrollConfiguration(
+                              behavior: CustomScroll(),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 15,
                                     ),
-                                  )
-                                : ScrollConfiguration(
-                                    behavior: CustomScroll(),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 15,
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(12.0),
-                                            child: Image(
-                                                image: AssetImage(
-                                                    'assets/images/banner.png')),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 16.0,
-                                                top: 24,
-                                                bottom: 22),
-                                            child: Text(
-                                              args!['name'],
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 20,
-                                                  color: Color.fromRGBO(
-                                                      26, 183, 168, 1)),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 8.0),
-                                            child: ListView.builder(
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemCount: stepModel.length,
-                                                itemBuilder: (ctx, i) {
-                                                  return GuideExpansionTile(
-                                                      title:
-                                                          stepModel[i].title ??
-                                                              '',
-                                                      leadingText: '${i + 1}.',
-                                                      childs:
-                                                          stepModel[i].steps);
-                                                }),
-                                          ),
-                                          const SizedBox(
-                                            height: 50,
-                                          )
-                                        ],
+                                    const Padding(
+                                      padding: EdgeInsets.all(12.0),
+                                      child: Image(
+                                          image: AssetImage(
+                                              'assets/images/banner.png')),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16.0, top: 24, bottom: 22),
+                                      child: Text(
+                                        condition.title,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 20,
+                                            color: Color.fromRGBO(
+                                                26, 183, 168, 1)),
                                       ),
                                     ),
-                                  )))
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: ListView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: condition.steps!.length,
+                                          itemBuilder: (ctx, i) {
+                                            return GuideExpansionTile(
+                                                title:
+                                                    condition.steps![i].title ??
+                                                        '',
+                                                leadingText: '${i + 1}.',
+                                                childs:
+                                                    condition.steps![i].steps);
+                                          }),
+                                    ),
+                                    const SizedBox(
+                                      height: 50,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )))
                   ],
                 ),
                 decoration: const BoxDecoration(
