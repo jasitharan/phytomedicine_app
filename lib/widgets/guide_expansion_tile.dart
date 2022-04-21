@@ -8,10 +8,12 @@ class GuideExpansionTile extends StatefulWidget {
   final String leadingText;
   final StepModel me;
   final List<StepModel>? childs;
+  final Color color;
   const GuideExpansionTile(
       {Key? key,
       required this.me,
       required this.leadingText,
+      this.color = const Color.fromRGBO(189, 189, 189, 1),
       required this.childs})
       : super(key: key);
 
@@ -56,9 +58,12 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
         ExpansionTile(
           onExpansionChanged: (value) {},
           expandedAlignment: Alignment.topLeft,
-          iconColor: widget.childs != null ? Colors.blue : Colors.transparent,
-          collapsedIconColor:
-              widget.childs != null ? Colors.blue : Colors.transparent,
+          iconColor: widget.childs != null
+              ? const Color.fromRGBO(26, 183, 168, 1)
+              : Colors.transparent,
+          collapsedIconColor: widget.childs != null
+              ? const Color.fromRGBO(26, 183, 168, 1)
+              : Colors.transparent,
           childrenPadding: const EdgeInsets.only(left: 16.0),
           leading: Text(widget.leadingText,
               style: const TextStyle(
@@ -87,8 +92,7 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
                       ))
               : Container(),
           title: Text(widget.me.title ?? '',
-              style: const TextStyle(
-                  color: Color.fromRGBO(189, 189, 189, 1), fontSize: 18.0)),
+              style: TextStyle(color: widget.color, fontSize: 18.0)),
           children: widget.childs != null && widget.childs!.isNotEmpty
               ? [
                   ListView.builder(
