@@ -1,13 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:phytomedicine_app/models/step_model.dart';
+import 'package:phytomedicine_app/services/fire_storage_service.dart';
 
 class GuideExpansionTile extends StatefulWidget {
   final String leadingText;
-  final String title;
+  final StepModel me;
   final List<StepModel>? childs;
   const GuideExpansionTile(
       {Key? key,
-      required this.title,
+      required this.me,
       required this.leadingText,
       required this.childs})
       : super(key: key);
@@ -17,6 +20,27 @@ class GuideExpansionTile extends StatefulWidget {
 }
 
 class _GuideExpansionTileState extends State<GuideExpansionTile> {
+  bool _isInit = true;
+  bool loading = false;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    if (_isInit) {
+      if (widget.me.image != null) {
+        setState(() {
+          loading = true;
+        });
+        widget.me.image = await FireStorageService.loadImage(
+            '${widget.me.image}', '/conditions_other');
+        setState(() {
+          loading = false;
+        });
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,7 +63,30 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
           leading: Text(widget.leadingText,
               style: const TextStyle(
                   color: Color.fromRGBO(26, 183, 168, 1), fontSize: 18.0)),
-          title: Text(widget.title,
+          subtitle: widget.me.image != null
+              ? loading
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 16.0),
+                      child: SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: SpinKitCubeGrid(
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.contain,
+                        imageUrl: widget.me.image!,
+                        errorWidget: (context, url, error) => const Image(
+                            image:
+                                AssetImage('assets/images/conditions/hiv.png')),
+                      ))
+              : Container(),
+          title: Text(widget.me.title ?? '',
               style: const TextStyle(
                   color: Color.fromRGBO(189, 189, 189, 1), fontSize: 18.0)),
           children: widget.childs != null && widget.childs!.isNotEmpty
@@ -50,10 +97,10 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
                       itemCount: widget.childs!.length,
                       itemBuilder: (ctx, i) {
                         return GuideExpansionTile(
-                            title: widget.childs![i].title ?? '',
+                            me: widget.childs![i],
                             leadingText: '*',
                             childs: widget.childs![i].steps);
-                      })
+                      }),
                 ]
               : [],
         ),

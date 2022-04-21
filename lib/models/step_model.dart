@@ -13,11 +13,10 @@ List<StepModel>? stepFromJson(List<dynamic>? str) {
 
 class StepModel {
   final String? title;
-  final String? image;
+  String? image;
   final List<StepModel>? steps;
 
-  const StepModel(
-      {required this.title, required this.image, required this.steps});
+  StepModel({required this.title, required this.image, required this.steps});
 
   Map<String, dynamic> toJson() => {
         'title': title,

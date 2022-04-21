@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/condition_model.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
@@ -85,11 +86,18 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: Image(
-                                          image: AssetImage(
-                                              'assets/images/banner.png')),
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Center(
+                                        child: CachedNetworkImage(
+                                          imageUrl: condition.image,
+                                          fit: BoxFit.contain,
+                                          errorWidget: (context, url, error) =>
+                                              const Image(
+                                                  image: AssetImage(
+                                                      'assets/images/conditions/hiv.png')),
+                                        ),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -112,9 +120,7 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                           itemCount: condition.steps!.length,
                                           itemBuilder: (ctx, i) {
                                             return GuideExpansionTile(
-                                                title:
-                                                    condition.steps![i].title ??
-                                                        '',
+                                                me: condition.steps![i],
                                                 leadingText: '${i + 1}.',
                                                 childs:
                                                     condition.steps![i].steps);
