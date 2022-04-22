@@ -15,10 +15,16 @@ import 'package:phytomedicine_app/services/auth.dart';
 import 'package:phytomedicine_app/services/conditions.dart';
 import 'package:provider/provider.dart';
 
+import 'services/apple_signin_available.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  final appleSignInAvailable = await AppleSignInAvailable.check();
+  runApp(Provider<AppleSignInAvailable>.value(
+    value: appleSignInAvailable,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

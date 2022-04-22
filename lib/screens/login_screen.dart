@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/screens/home_screen.dart';
 import 'package:phytomedicine_app/screens/signup_screen.dart';
+import 'package:phytomedicine_app/services/apple_signin_available.dart';
 import 'package:phytomedicine_app/services/auth.dart';
 import 'package:phytomedicine_app/shared/constants.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/shared/snackbar.dart';
+import 'package:provider/provider.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -35,6 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appleSignInAvailable =
+        Provider.of<AppleSignInAvailable>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.black,
       body: loading
@@ -333,35 +338,85 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    InkWell(
-                                      onTap: () async {
-                                        setState(() {
-                                          loading = true;
-                                        });
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () async {
+                                            setState(() {
+                                              loading = true;
+                                            });
 
-                                        var result =
-                                            await _auth.signInwithGoogle();
+                                            var result =
+                                                await _auth.signInwithGoogle();
 
-                                        if (result != null) {
-                                          Navigator.pushReplacementNamed(
-                                              context, HomeScreen.routeName);
-                                        } else {
-                                          setState(() {
-                                            loading = false;
-                                          });
-                                        }
-                                      },
-                                      child: Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                shape: BoxShape.circle),
-                                            child: Image.asset(
-                                                'assets/images/google.png'),
-                                          )),
+                                            if (result != null) {
+                                              Navigator.pushReplacementNamed(
+                                                  context,
+                                                  HomeScreen.routeName);
+                                            } else {
+                                              setState(() {
+                                                loading = false;
+                                              });
+                                            }
+                                          },
+                                          child: Align(
+                                              alignment: Alignment.center,
+                                              child: Container(
+                                                height: 50,
+                                                width: 50,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle),
+                                                child: Image.asset(
+                                                    'assets/images/google.png'),
+                                              )),
+                                        ),
+                                        if (appleSignInAvailable.isAvailable)
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                        if (appleSignInAvailable.isAvailable)
+                                          InkWell(
+                                            onTap: () async {
+                                              setState(() {
+                                                loading = true;
+                                              });
+
+                                              var result = await _auth
+                                                  .signInWithApple(scopes: [
+                                                Scope.email,
+                                                Scope.fullName
+                                              ]);
+
+                                              if (result != null) {
+                                                Navigator.pushReplacementNamed(
+                                                    context,
+                                                    HomeScreen.routeName);
+                                              } else {
+                                                setState(() {
+                                                  loading = false;
+                                                });
+                                              }
+                                            },
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          color: Colors.white,
+                                                          shape:
+                                                              BoxShape.circle),
+                                                  child: Image.asset(
+                                                    'assets/images/apple.png',
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )),
+                                          ),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 20,
