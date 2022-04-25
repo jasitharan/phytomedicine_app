@@ -2,15 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-	 	<dict>
-	        <key>CFBundleURLSchemes</key>
-	        <array>
-	            <string>com.googleusercontent.apps.877595379363-b0n8avjahmcbi1vna62n8r33t6h4b7pc<string>
-	        </array>
-	    </dict>
-	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) uses photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
