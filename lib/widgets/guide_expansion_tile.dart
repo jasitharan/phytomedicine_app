@@ -5,14 +5,14 @@ import 'package:phytomedicine_app/models/step_model.dart';
 import 'package:phytomedicine_app/services/fire_storage_service.dart';
 
 class GuideExpansionTile extends StatefulWidget {
-  final String leadingText;
+  // final String leadingText;
   final StepModel me;
   final List<StepModel>? childs;
   final Color color;
   const GuideExpansionTile(
       {Key? key,
       required this.me,
-      required this.leadingText,
+      //   required this.leadingText,
       this.color = const Color.fromRGBO(189, 189, 189, 1),
       required this.childs})
       : super(key: key);
@@ -50,11 +50,11 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
         const SizedBox(
           height: 10,
         ),
-        const Divider(
-          indent: 15,
-          endIndent: 15,
-          color: Color.fromRGBO(189, 189, 189, 0.22),
-        ),
+        // const Divider(
+        //   indent: 15,
+        //   endIndent: 15,
+        //   color: Color.fromRGBO(189, 189, 189, 0.22),
+        // ),
         ExpansionTile(
           onExpansionChanged: (value) {},
           expandedAlignment: Alignment.topLeft,
@@ -65,9 +65,9 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
               ? const Color.fromRGBO(26, 183, 168, 1)
               : Colors.transparent,
           childrenPadding: const EdgeInsets.only(left: 16.0),
-          leading: Text(widget.leadingText,
-              style: const TextStyle(
-                  color: Color.fromRGBO(26, 183, 168, 1), fontSize: 18.0)),
+          // leading: Text(widget.leadingText,
+          //     style: const TextStyle(
+          //         color: Color.fromRGBO(26, 183, 168, 1), fontSize: 18.0)),
           subtitle: widget.me.image != null
               ? loading
                   ? const Padding(
@@ -81,15 +81,13 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
                         ),
                       ),
                     )
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: CachedNetworkImage(
-                        fit: BoxFit.contain,
-                        imageUrl: widget.me.image!,
-                        errorWidget: (context, url, error) => const Image(
-                            image:
-                                AssetImage('assets/images/conditions/hiv.png')),
-                      ))
+                  : CachedNetworkImage(
+                      fit: BoxFit.contain,
+                      imageUrl: widget.me.image!,
+                      errorWidget: (context, url, error) => const Image(
+                          image:
+                              AssetImage('assets/images/conditions/hiv.png')),
+                    )
               : Container(),
           title: Text(widget.me.title ?? '',
               style: TextStyle(color: widget.color, fontSize: 18.0)),
@@ -102,7 +100,7 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
                       itemBuilder: (ctx, i) {
                         return GuideExpansionTile(
                             me: widget.childs![i],
-                            leadingText: '*',
+                            //     leadingText: '*',
                             childs: widget.childs![i].steps);
                       }),
                 ]

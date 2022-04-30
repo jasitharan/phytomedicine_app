@@ -122,7 +122,7 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                             return GuideExpansionTile(
                                                 me: condition.steps![i],
                                                 color: Colors.white,
-                                                leadingText: '${i + 1}.',
+                                                // leadingText: '${i + 1}.',
                                                 childs:
                                                     condition.steps![i].steps);
                                           }),
