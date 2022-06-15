@@ -33,7 +33,11 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
         loading = true;
       });
       final conditions = Provider.of<Conditions>(context);
-      await conditions.getConditions('');
+
+      if (!conditions.isDone) {
+        await conditions.getConditions('');
+      }
+
       setState(() {
         loading = false;
       });

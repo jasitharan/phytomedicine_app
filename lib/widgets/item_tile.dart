@@ -37,7 +37,13 @@ class ItemTile extends StatelessWidget {
                             image:
                                 AssetImage('assets/images/conditions/hiv.png')),
                       )
-                    : Image(image: AssetImage('assets/images/$imageName.png')),
+                    : Image(
+                        image: AssetImage(
+                          imageName != null
+                              ? 'assets/images/$imageName.png'
+                              : 'assets/images/conditions/hiv.png',
+                        ),
+                      ),
                 SizedBox(
                   width: 150,
                   child: Text(

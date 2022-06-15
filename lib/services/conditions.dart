@@ -38,15 +38,20 @@ class Conditions {
         if (conditions
             .where((element) => element.title == document['title'])
             .isEmpty) {
-          conditions.add(Condition.fromJson(document));
+          try {
+            conditions.add(Condition.fromJson(document));
+          } catch (e) {
+            continue;
+          }
         }
       }
 
       _lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
 
+      isDone = true;
+
       return 1;
     } catch (e) {
-      // print(e.toString());
       return null;
     }
   }
@@ -75,7 +80,11 @@ class Conditions {
         if (conditions
             .where((element) => element.title == document['title'])
             .isEmpty) {
-          conditions.add(Condition.fromJson(document));
+          try {
+            conditions.add(Condition.fromJson(document));
+          } catch (e) {
+            continue;
+          }
         }
       }
 
