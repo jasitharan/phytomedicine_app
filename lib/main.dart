@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/auth_model.dart';
+import 'package:phytomedicine_app/screens/files_screen.dart';
 import 'package:phytomedicine_app/screens/guidebook_screen.dart';
 import 'package:phytomedicine_app/screens/home_screen.dart';
 import 'package:phytomedicine_app/screens/leave_review_screen.dart';
@@ -13,6 +14,7 @@ import 'package:phytomedicine_app/screens/signup_screen.dart';
 import 'package:phytomedicine_app/screens/wrapper.dart';
 import 'package:phytomedicine_app/services/auth.dart';
 import 'package:phytomedicine_app/services/conditions.dart';
+import 'package:phytomedicine_app/services/folders_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'services/apple_signin_available.dart';
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           Provider.value(value: Conditions()),
+          Provider.value(value: FolderProvider())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -57,7 +60,8 @@ class MyApp extends StatelessWidget {
             MobileMedicalClinicScreen.routeName: (ctx) =>
                 const MobileMedicalClinicScreen(),
             PhytoMedicineScreen.routeName: (ctx) => const PhytoMedicineScreen(),
-            SettingScreen.routeName: (ctx) => const SettingScreen()
+            SettingScreen.routeName: (ctx) => const SettingScreen(),
+            FilesScreen.routeName: (ctx) => const FilesScreen()
           },
         ),
       ),

@@ -1,7 +1,15 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:phytomedicine_app/screens/files_screen.dart';
+import 'package:phytomedicine_app/services/folders_provider.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
-import 'package:phytomedicine_app/widgets/item_tile.dart';
+import 'package:phytomedicine_app/widgets/show_dialogs.dart';
+import 'package:provider/provider.dart';
+
+import '../models/auth_model.dart';
+import '../widgets/show_popup_menu.dart';
 
 class PhytoMedicineScreen extends StatefulWidget {
   const PhytoMedicineScreen({Key? key}) : super(key: key);
@@ -13,13 +21,40 @@ class PhytoMedicineScreen extends StatefulWidget {
 }
 
 class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
-  bool loading = false;
+  bool _loading = false;
+  bool _isInit = true;
+  String folderName = "";
+
+  @override
+  Future<void> didChangeDependencies() async {
+    if (_isInit) {
+      setState(() {
+        _loading = true;
+      });
+      final user = Provider.of<Auth?>(context);
+      final folders = Provider.of<FolderProvider>(context);
+      if (!folders.isDone) {
+        if (await folders.getFolders(user!.uid) != null) {
+          folders.isDone = true;
+        }
+      }
+
+      setState(() {
+        _loading = false;
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final folders = Provider.of<FolderProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
-      body: loading
+      body: _loading
           ? const Loading()
           : SafeArea(
               child: Container(
@@ -31,38 +66,28 @@ class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
                       width: double.infinity,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
+                          const SizedBox(),
+                          const AutoSizeText(
+                            'Phytomedicine Submission',
+                            minFontSize: 20,
+                            maxFontSize: 24,
+                            style: TextStyle(color: Colors.white),
                           ),
-                          const FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'Global Medical Guide',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.settings,
-                                  size: 32,
-                                  color: Colors.white,
-                                )),
-                          )
+                          InkWell(
+                              onTap: () {
+                                showFolderDialog(
+                                  context: context,
+                                  hanlder: (val) {
+                                    print(val);
+                                  },
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 12.0),
+                                child: Image.asset('assets/images/add.png'),
+                              ))
                         ],
                       ),
                     ),
@@ -78,46 +103,67 @@ class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
                             child: ScrollConfiguration(
                               behavior: CustomScroll(),
                               child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Image(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.25,
-                                          width: double.infinity,
-                                          image: const AssetImage(
-                                              'assets/images/banner.png')),
+                                  child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 50,
+                                  ),
+                                  GridView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 1.0,
+                                      mainAxisSpacing: 10.0,
                                     ),
-                                    // const SizedBox(
-                                    //   height: 50,
-                                    // ),
-                                    ItemTile(
-                                        handlerFunction: () {
-                                          // print("Hello jasitharan");
+                                    itemCount: folders.folders.length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, FilesScreen.routeName,
+                                              arguments: {
+                                                'uid':
+                                                    folders.folders[index].uid,
+                                              });
                                         },
-                                        title: 'Guidebook',
-                                        imageName: 'healthcare'),
-                                    ItemTile(
-                                        handlerFunction: () {},
-                                        title: 'Phytomedicine',
-                                        imageName: 'healthcare2'),
-                                    ItemTile(
-                                        handlerFunction: () {},
-                                        title: 'Leave a Review',
-                                        imageName: 'healthcare3'),
-                                    ItemTile(
-                                        handlerFunction: () {},
-                                        title: 'Mobile Medical Clinic',
-                                        imageName: 'healthcare4'),
-                                    const SizedBox(
-                                      height: 30,
-                                    )
-                                  ],
-                                ),
-                              ),
+                                        onLongPressDown:
+                                            (LongPressDownDetails details) {
+                                          showPopupMenu(
+                                              context,
+                                              details.globalPosition,
+                                              folders.folders[index].uid!,
+                                              index % 3);
+                                        },
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/folder.png',
+                                              width:
+                                                  mediaQuery.size.width * 0.25,
+                                              height:
+                                                  mediaQuery.size.width * 0.25,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            AutoSizeText(
+                                              folders.folders[index].name,
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                              minFontSize: 12,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              )),
                             )))
                   ],
                 ),
