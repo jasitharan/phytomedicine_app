@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:phytomedicine_app/models/folder_model.dart';
 
 class FolderProvider {
@@ -70,5 +73,27 @@ class FolderProvider {
       // print(e.toString());
       return null;
     }
+  }
+
+  Future<String?> uploadFile(ImageSource? imageSource, String uid) async {
+    if (imageSource != null) {
+      final pickedFile = await ImagePicker().pickImage(source: imageSource);
+      if (pickedFile != null) {
+        String filename = basename(pickedFile.path);
+
+        Reference ref = FirebaseStorage.instance
+            .ref()
+            .child("phytomedicine/")
+            .child(uid)
+            .child(filename);
+
+        await ref.putData(await pickedFile.readAsBytes());
+
+        var dwonloadurl = await ref.getDownloadURL();
+
+        return dwonloadurl;
+      }
+    }
+    return null;
   }
 }

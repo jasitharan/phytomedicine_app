@@ -65,10 +65,11 @@ Future<void> showFolderDialog({
           builder: (context, setState) => SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                const Text(
-                  'Entre the file name that you want to create',
+                Text(
+                  'Entre the file name that you want to ' +
+                      (isEdit ? 'rename' : 'create'),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),

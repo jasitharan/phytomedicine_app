@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:phytomedicine_app/models/auth_model.dart';
 import 'package:phytomedicine_app/models/folder_model.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
@@ -19,7 +21,7 @@ class FilesScreen extends StatefulWidget {
 }
 
 class _FilesScreenState extends State<FilesScreen> {
-  final bool _loading = false;
+  bool _loading = false;
   bool _isInit = true;
   String uid = '';
   String name = '';
@@ -37,6 +39,7 @@ class _FilesScreenState extends State<FilesScreen> {
 
       files = thisFolder.filesUrls!;
       name = thisFolder.name;
+      uid = args['uid']!;
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -44,6 +47,9 @@ class _FilesScreenState extends State<FilesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final folders = Provider.of<FolderProvider>(context);
+    final user = Provider.of<Auth>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: _loading
@@ -87,7 +93,30 @@ class _FilesScreenState extends State<FilesScreen> {
                                     height: 40,
                                   ),
                                   ElevatedButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      setState(() {
+                                        _loading = true;
+                                      });
+                                      String? imageUrl =
+                                          await folders.uploadFile(
+                                              ImageSource.gallery, user.uid);
+
+                                      if (imageUrl != null) {
+                                        FolderModel model = folders.folders
+                                            .where(
+                                                (element) => element.uid == uid)
+                                            .first;
+                                        model.filesUrls?.add(imageUrl);
+                                        setState(() {
+                                          _loading = false;
+                                        });
+                                        folders.editFolders(model, user.uid);
+                                      } else {
+                                        setState(() {
+                                          _loading = false;
+                                        });
+                                      }
+                                    },
                                     icon: const Icon(Icons.upload),
                                     label: const Text('Upload Image'),
                                     style: ButtonStyle(
@@ -109,7 +138,7 @@ class _FilesScreenState extends State<FilesScreen> {
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 3,
-                                        crossAxisSpacing: 1.0,
+                                        crossAxisSpacing: 10.0,
                                         mainAxisSpacing: 10.0,
                                       ),
                                       itemCount: files.length,
