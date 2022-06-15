@@ -36,6 +36,9 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
 
       if (!conditions.isDone) {
         await conditions.getConditions('');
+        if (conditions.conditions.isNotEmpty) {
+          conditions.isDone = true;
+        }
       }
 
       setState(() {
@@ -119,9 +122,8 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                               child: LazyLoadScrollView(
                                 scrollOffset: 150,
                                 onEndOfPage: () async {
-                                  final result =
-                                      await conditions.loadMoreConditions(
-                                          searchTextController.text);
+                                  final result = await conditions
+                                      .getConditions(searchTextController.text);
 
                                   if (mounted && result != null) {
                                     setState(() {});

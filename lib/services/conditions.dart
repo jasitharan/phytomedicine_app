@@ -15,56 +15,32 @@ class Conditions {
     conditions.clear();
 
     try {
-      final querySnapshot = condition == ''
-          ? await conditionsCollection.orderBy('title').limit(20).get()
-          : await conditionsCollection
-              .where('title', isGreaterThanOrEqualTo: condition.capitalize())
-              .where('title', isLessThan: condition.capitalize() + 'z')
-              .orderBy('title')
-              .limit(20)
-              .get();
+      Query<Object?> query1;
+      Query<Object?> query2;
 
-      for (var doc in querySnapshot.docs) {
-        dynamic document = doc.data();
+      if (_lastDocument != null) {
+        query1 = conditionsCollection
+            .orderBy('title')
+            .startAfterDocument(_lastDocument!)
+            .limit(6);
 
-        String? imageName;
-
-        if (document['image'] != null) {
-          imageName = await FireStorageService.loadImage(
-              '${document['image']}', '/conditions');
-        }
-
-        document['image'] = imageName;
-        if (conditions
-            .where((element) => element.title == document['title'])
-            .isEmpty) {
-          try {
-            conditions.add(Condition.fromJson(document));
-          } catch (e) {
-            continue;
-          }
-        }
+        query2 = conditionsCollection
+            .where('title', isGreaterThanOrEqualTo: condition.capitalize())
+            .where('title', isLessThan: condition.capitalize() + 'z')
+            .orderBy('title')
+            .startAfterDocument(_lastDocument!)
+            .limit(6);
+      } else {
+        query1 = conditionsCollection.orderBy('title').limit(6);
+        query2 = conditionsCollection
+            .where('title', isGreaterThanOrEqualTo: condition.capitalize())
+            .where('title', isLessThan: condition.capitalize() + 'z')
+            .orderBy('title')
+            .limit(6);
       }
 
-      _lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
-
-      isDone = true;
-
-      return 1;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future loadMoreConditions(String condition) async {
-    try {
-      final querySnapshot = await conditionsCollection
-          .where('title', isGreaterThanOrEqualTo: condition.capitalize())
-          .where('title', isLessThan: condition.capitalize() + 'z')
-          .orderBy('title')
-          .startAfterDocument(_lastDocument!)
-          .limit(20)
-          .get();
+      final querySnapshot =
+          condition == '' ? await query1.get() : await query2.get();
 
       for (var doc in querySnapshot.docs) {
         dynamic document = doc.data();
@@ -92,8 +68,6 @@ class Conditions {
 
       return 1;
     } catch (e) {
-      // print('Getting searh products error');
-      // print(e.toString());
       return null;
     }
   }
