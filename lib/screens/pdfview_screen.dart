@@ -89,14 +89,19 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
                                     Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: Center(
-                                        child: CachedNetworkImage(
-                                          imageUrl: condition.image,
-                                          fit: BoxFit.contain,
-                                          errorWidget: (context, url, error) =>
-                                              const Image(
-                                                  image: AssetImage(
-                                                      'assets/images/conditions/hiv.png')),
-                                        ),
+                                        child: condition.image != null
+                                            ? CachedNetworkImage(
+                                                imageUrl: condition.image!,
+                                                fit: BoxFit.contain,
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    const Image(
+                                                        image: AssetImage(
+                                                            'assets/images/conditions/hiv.png')),
+                                              )
+                                            : const Image(
+                                                image: AssetImage(
+                                                    'assets/images/conditions/hiv.png')),
                                       ),
                                     ),
                                     Padding(

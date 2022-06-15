@@ -26,8 +26,13 @@ class Conditions {
 
       for (var doc in querySnapshot.docs) {
         dynamic document = doc.data();
-        String imageName = await FireStorageService.loadImage(
-            '${document['image']}', '/conditions');
+
+        String? imageName;
+
+        if (document['image'] != null) {
+          imageName = await FireStorageService.loadImage(
+              '${document['image']}', '/conditions');
+        }
 
         document['image'] = imageName;
         if (conditions
@@ -59,8 +64,13 @@ class Conditions {
       for (var doc in querySnapshot.docs) {
         dynamic document = doc.data();
 
-        String imageName = await FireStorageService.loadImage(
-            '${document['image']}', '/conditions');
+        String? imageName;
+
+        if (document['image'] != null) {
+          imageName = await FireStorageService.loadImage(
+              '${document['image']}', '/conditions');
+        }
+
         document['image'] = imageName;
         if (conditions
             .where((element) => element.title == document['title'])

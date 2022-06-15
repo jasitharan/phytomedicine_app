@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ItemTile extends StatelessWidget {
   final Function handlerFunction;
-  final String imageName;
+  final String? imageName;
   final String title;
   final bool fromInternet;
   const ItemTile(
@@ -30,9 +30,9 @@ class ItemTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                fromInternet
+                (fromInternet && imageName != null)
                     ? CachedNetworkImage(
-                        imageUrl: imageName,
+                        imageUrl: imageName!,
                         errorWidget: (context, url, error) => const Image(
                             image:
                                 AssetImage('assets/images/conditions/hiv.png')),
