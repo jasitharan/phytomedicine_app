@@ -12,35 +12,38 @@ class Conditions {
   final List<Condition> conditions = [];
 
   Future getConditions(String condition) async {
-    conditions.clear();
-
     try {
-      Query<Object?> query1;
-      Query<Object?> query2;
+      QuerySnapshot<Object?> querySnapshot;
 
       if (_lastDocument != null) {
-        query1 = conditionsCollection
-            .orderBy('title')
-            .startAfterDocument(_lastDocument!)
-            .limit(6);
-
-        query2 = conditionsCollection
-            .where('title', isGreaterThanOrEqualTo: condition.capitalize())
-            .where('title', isLessThan: condition.capitalize() + 'z')
-            .orderBy('title')
-            .startAfterDocument(_lastDocument!)
-            .limit(6);
+        if (condition == '') {
+          querySnapshot = await conditionsCollection
+              .orderBy('title')
+              .startAfterDocument(_lastDocument!)
+              .limit(6)
+              .get();
+        } else {
+          querySnapshot = await conditionsCollection
+              .where('title', isGreaterThanOrEqualTo: condition.capitalize())
+              .where('title', isLessThan: condition.capitalize() + 'z')
+              .orderBy('title')
+              .startAfterDocument(_lastDocument!)
+              .limit(6)
+              .get();
+        }
       } else {
-        query1 = conditionsCollection.orderBy('title').limit(6);
-        query2 = conditionsCollection
-            .where('title', isGreaterThanOrEqualTo: condition.capitalize())
-            .where('title', isLessThan: condition.capitalize() + 'z')
-            .orderBy('title')
-            .limit(6);
+        if (condition == '') {
+          querySnapshot =
+              await conditionsCollection.orderBy('title').limit(6).get();
+        } else {
+          querySnapshot = await conditionsCollection
+              .where('title', isGreaterThanOrEqualTo: condition.capitalize())
+              .where('title', isLessThan: condition.capitalize() + 'z')
+              .orderBy('title')
+              .limit(6)
+              .get();
+        }
       }
-
-      final querySnapshot =
-          condition == '' ? await query1.get() : await query2.get();
 
       for (var doc in querySnapshot.docs) {
         dynamic document = doc.data();
@@ -68,6 +71,7 @@ class Conditions {
 
       return 1;
     } catch (e) {
+      // print(e.toString());
       return null;
     }
   }
