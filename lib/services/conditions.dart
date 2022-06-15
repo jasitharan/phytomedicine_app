@@ -20,7 +20,7 @@ class Conditions {
           querySnapshot = await conditionsCollection
               .orderBy('title')
               .startAfterDocument(_lastDocument!)
-              .limit(6)
+              .limit(7)
               .get();
         } else {
           querySnapshot = await conditionsCollection
@@ -28,19 +28,19 @@ class Conditions {
               .where('title', isLessThan: condition.capitalize() + 'z')
               .orderBy('title')
               .startAfterDocument(_lastDocument!)
-              .limit(6)
+              .limit(7)
               .get();
         }
       } else {
         if (condition == '') {
           querySnapshot =
-              await conditionsCollection.orderBy('title').limit(6).get();
+              await conditionsCollection.orderBy('title').limit(7).get();
         } else {
           querySnapshot = await conditionsCollection
               .where('title', isGreaterThanOrEqualTo: condition.capitalize())
               .where('title', isLessThan: condition.capitalize() + 'z')
               .orderBy('title')
-              .limit(6)
+              .limit(7)
               .get();
         }
       }
