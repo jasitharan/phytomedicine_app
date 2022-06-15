@@ -8,6 +8,8 @@ class FolderProvider {
   final List<FolderModel> folders = [];
   bool isDone = false;
 
+  bool isAdd = false;
+
   Future getFolders(String uid) async {
     try {
       final querySnapshot =
@@ -25,57 +27,45 @@ class FolderProvider {
     }
   }
 
-  Future addFolders(String folder, String uid) async {
+  Future addFolders(FolderModel folder, String uid) async {
     try {
-      final querySnapshot = await foldersCollection
+      final documentReference = await foldersCollection
           .doc(uid)
           .collection('folders')
-          .orderBy('createdAt')
-          .get();
+          .add(folder.toMap());
 
-      for (var doc in querySnapshot.docs) {
-        print(doc);
-      }
+      folder.uid = documentReference.id;
 
-      return folders;
+      isAdd = true;
+
+      return folder;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future editFolders(FolderModel folder, String uid) async {
+    try {
+      await foldersCollection
+          .doc(uid)
+          .collection('folders')
+          .doc(folder.uid)
+          .update(folder.toMap());
     } catch (e) {
       // print(e.toString());
       return null;
     }
   }
 
-  Future editFolders(String folder, String uid) async {
+  Future deleteFolders(String folderId, String uid) async {
     try {
-      final querySnapshot = await foldersCollection
+      await foldersCollection
           .doc(uid)
           .collection('folders')
-          .orderBy('createdAt')
-          .get();
+          .doc(folderId)
+          .delete();
 
-      for (var doc in querySnapshot.docs) {
-        print(doc);
-      }
-
-      return folders;
-    } catch (e) {
-      // print(e.toString());
-      return null;
-    }
-  }
-
-  Future deleteFolders(String folder, String uid) async {
-    try {
-      final querySnapshot = await foldersCollection
-          .doc(uid)
-          .collection('folders')
-          .orderBy('createdAt')
-          .get();
-
-      for (var doc in querySnapshot.docs) {
-        print(doc);
-      }
-
-      return folders;
+      return true;
     } catch (e) {
       // print(e.toString());
       return null;

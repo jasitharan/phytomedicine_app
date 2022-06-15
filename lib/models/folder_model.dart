@@ -27,4 +27,16 @@ class FolderModel {
 
   factory FolderModel.fromJson(String source) =>
       FolderModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  FolderModel copyWith({
+    String? uid,
+    String? name,
+    List<String>? filesUrls,
+  }) {
+    return FolderModel(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      filesUrls: filesUrls ?? this.filesUrls,
+    );
+  }
 }

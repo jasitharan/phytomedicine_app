@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:phytomedicine_app/screens/files_screen.dart';
+import 'package:phytomedicine_app/models/folder_model.dart';
 import 'package:phytomedicine_app/services/folders_provider.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
@@ -23,7 +22,7 @@ class PhytoMedicineScreen extends StatefulWidget {
 class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
   bool _loading = false;
   bool _isInit = true;
-  String folderName = "";
+  bool _isAdding = false;
 
   @override
   Future<void> didChangeDependencies() async {
@@ -50,6 +49,7 @@ class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final user = Provider.of<Auth?>(context);
     final folders = Provider.of<FolderProvider>(context);
 
     return Scaffold(
@@ -77,10 +77,17 @@ class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
                           ),
                           InkWell(
                               onTap: () {
+                                _isAdding = true;
                                 showFolderDialog(
                                   context: context,
                                   hanlder: (val) {
-                                    print(val);
+                                    FolderModel model =
+                                        FolderModel(name: val, filesUrls: []);
+                                    folders.folders.add(model);
+
+                                    setState(() {});
+
+                                    folders.addFolders(model, user!.uid);
                                   },
                                 );
                               },
@@ -121,21 +128,19 @@ class _PhytoMedicineScreenState extends State<PhytoMedicineScreen> {
                                     itemCount: folders.folders.length,
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, FilesScreen.routeName,
-                                              arguments: {
-                                                'uid':
-                                                    folders.folders[index].uid,
-                                              });
-                                        },
-                                        onLongPressDown:
-                                            (LongPressDownDetails details) {
-                                          showPopupMenu(
-                                              context,
-                                              details.globalPosition,
-                                              folders.folders[index].uid!,
-                                              index % 3);
+                                        onTapDown: (TapDownDetails details) {
+                                          if (folders.isAdd || !_isAdding) {
+                                            folders.isAdd = false;
+                                            _isAdding = false;
+                                            showPopupMenu(
+                                                    context,
+                                                    details.globalPosition,
+                                                    folders.folders[index].uid!,
+                                                    index % 3)
+                                                .then((value) {
+                                              setState(() {});
+                                            });
+                                          }
                                         },
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,

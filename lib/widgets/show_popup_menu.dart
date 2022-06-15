@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:phytomedicine_app/models/folder_model.dart';
+import 'package:phytomedicine_app/widgets/show_dialogs.dart';
+import 'package:provider/provider.dart';
 
+import '../models/auth_model.dart';
 import '../screens/files_screen.dart';
+import '../services/folders_provider.dart';
 
-void showPopupMenu(
+Future showPopupMenu(
     BuildContext context, Offset globalPosition, String uid, int index) async {
   double left = globalPosition.dx;
   double right = globalPosition.dx;
   double top = globalPosition.dy;
+
+  final user = Provider.of<Auth?>(context, listen: false);
+  final folders = Provider.of<FolderProvider>(context, listen: false);
 
   await showMenu(
     context: context,
@@ -62,7 +70,7 @@ void showPopupMenu(
         ),
       ),
       PopupMenuItem(
-        value: 1,
+        value: 3,
         child: RichText(
           text: const TextSpan(
             children: [
@@ -94,6 +102,27 @@ void showPopupMenu(
           Navigator.pushNamed(context, FilesScreen.routeName, arguments: {
             'uid': uid,
           });
+          break;
+        case 2:
+          showFolderDialog(
+            context: context,
+            isEdit: true,
+            hanlder: (val) {
+              FolderModel model =
+                  folders.folders.where((element) => element.uid == uid).first;
+              model.name = val;
+              folders.editFolders(model, user!.uid);
+            },
+          );
+          break;
+        case 3:
+          FolderModel model =
+              folders.folders.where((element) => element.uid == uid).first;
+          String folderId = model.uid!;
+
+          folders.folders.removeWhere((element) => element.uid == uid);
+
+          folders.deleteFolders(folderId, user!.uid);
           break;
         default:
       }
