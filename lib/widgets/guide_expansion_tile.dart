@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:phytomedicine_app/models/step_model.dart';
 import 'package:phytomedicine_app/services/fire_storage_service.dart';
+import 'package:string_extensions/string_extensions.dart';
 
 class GuideExpansionTile extends StatefulWidget {
   // final String leadingText;
   final StepModel me;
   final List<StepModel>? childs;
   final Color color;
-  const GuideExpansionTile(
-      {Key? key,
-      required this.me,
-      //   required this.leadingText,
-      this.color = const Color.fromRGBO(189, 189, 189, 1),
-      required this.childs})
-      : super(key: key);
+  final bool isIconOutlined;
+  const GuideExpansionTile({
+    Key? key,
+    required this.me,
+    //   required this.leadingText,
+    this.color = const Color.fromRGBO(189, 189, 189, 1),
+    required this.childs,
+    this.isIconOutlined = false,
+  }) : super(key: key);
 
   @override
   State<GuideExpansionTile> createState() => _GuideExpansionTileState();
@@ -89,8 +92,32 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
                               AssetImage('assets/images/conditions/hiv.png')),
                     )
               : Container(),
-          title: Text(widget.me.title ?? '',
-              style: TextStyle(color: widget.color, fontSize: 18.0)),
+          title: RichText(
+            text: TextSpan(
+              children: [
+                WidgetSpan(
+                  child: Icon(
+                    widget.isIconOutlined
+                        ? Icons.fiber_manual_record_outlined
+                        : Icons.fiber_manual_record,
+                    size: 16,
+                  ),
+                ),
+                TextSpan(
+                  text: widget.me.title == null
+                      ? ''
+                      : '    ${widget.me.title}'
+                          .split(' ')
+                          .map((word) => word.capitalize!)
+                          .join(' '),
+                  style: TextStyle(
+                    color: widget.color,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
           children: widget.childs != null && widget.childs!.isNotEmpty
               ? [
                   ListView.builder(
@@ -99,9 +126,11 @@ class _GuideExpansionTileState extends State<GuideExpansionTile> {
                       itemCount: widget.childs!.length,
                       itemBuilder: (ctx, i) {
                         return GuideExpansionTile(
-                            me: widget.childs![i],
-                            //     leadingText: '*',
-                            childs: widget.childs![i].steps);
+                          me: widget.childs![i],
+                          //     leadingText: '*',
+                          childs: widget.childs![i].steps,
+                          isIconOutlined: !widget.isIconOutlined,
+                        );
                       }),
                 ]
               : [],
