@@ -146,6 +146,7 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                           });
                                           await conditions.getConditions(
                                               searchTextController.text);
+                                          conditions.isDone = false;
                                           setState(() {
                                             searchLoading = false;
                                           });

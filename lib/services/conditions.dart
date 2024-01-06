@@ -9,11 +9,13 @@ class Conditions {
   DocumentSnapshot? _lastDocument;
 
   bool isDone = false;
+  bool isSearch = false;
   final List<Condition> conditions = [];
 
   Future getConditions(String condition) async {
     try {
       QuerySnapshot<Object?> querySnapshot;
+      isSearch = false;
 
       if (_lastDocument != null) {
         if (condition == '') {
@@ -23,19 +25,26 @@ class Conditions {
               .limit(7)
               .get();
         } else {
+          _lastDocument = null;
+          conditions.clear();
+          isSearch = true;
           querySnapshot = await conditionsCollection
               .where('title', isGreaterThanOrEqualTo: condition.capitalize())
               .where('title', isLessThan: condition.capitalize() + 'z')
               .orderBy('title')
-              .startAfterDocument(_lastDocument!)
+              //.startAfterDocument(_lastDocument!)
               .limit(7)
               .get();
         }
       } else {
         if (condition == '') {
+          conditions.clear();
           querySnapshot =
               await conditionsCollection.orderBy('title').limit(7).get();
         } else {
+          _lastDocument = null;
+          conditions.clear();
+          isSearch = true;
           querySnapshot = await conditionsCollection
               .where('title', isGreaterThanOrEqualTo: condition.capitalize())
               .where('title', isLessThan: condition.capitalize() + 'z')
@@ -67,7 +76,9 @@ class Conditions {
         }
       }
 
-      _lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
+      if (!isSearch) {
+        _lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
+      }
 
       return 1;
     } catch (e) {
