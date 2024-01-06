@@ -52,13 +52,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height * 0.3,
-                      child: GridTile(
-                          footer: const SizedBox(),
+                      child: const GridTile(
+                          footer: SizedBox(),
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Image(
                                     image:
                                         AssetImage('assets/images/world.png')),
@@ -124,12 +124,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             color: Colors.white),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 32.0, top: 24),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 32.0, top: 24),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        children: const [
+                                        children: [
                                           Image(
                                               color: Colors.white,
                                               image: AssetImage(
@@ -170,12 +170,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         },
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 32.0, top: 12),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 32.0, top: 12),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        children: const [
+                                        children: [
                                           Image(
                                               color: Colors.white,
                                               image: AssetImage(
@@ -213,12 +213,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         },
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 32.0, top: 12),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 32.0, top: 12),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        children: const [
+                                        children: [
                                           Image(
                                               color: Colors.white,
                                               image: AssetImage(
