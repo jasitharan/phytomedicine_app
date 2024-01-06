@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phytomedicine_app/models/auth_model.dart';
 import 'package:phytomedicine_app/screens/login_screen.dart';
@@ -9,6 +11,9 @@ import 'package:phytomedicine_app/shared/loading.dart';
 import 'package:phytomedicine_app/shared/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
+
+import '../theme/text_form_fields.dart';
+import '../theme/validators.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -55,6 +60,113 @@ class _SettingScreenState extends State<SettingScreen> {
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
+    });
+  }
+
+  void _delete(BuildContext context, String email) {
+    String password = '';
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: const Text('Please Confirm'),
+            content: const Text(
+              'Please enter your password to delete the account',
+              style: TextStyle(color: Colors.black54),
+            ),
+            actions: [
+              const Padding(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Password',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(101, 101, 101, 1),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                child: ClassTextFormField(
+                  isPassword: true,
+                  onChanged: (val) {
+                    password = val;
+                  },
+                  validator: (val) => !passwordValidator.hasMatch(val!)
+                      ? "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number."
+                      : null,
+                ),
+              ),
+              // The "Yes" button
+              TextButton(
+                  onPressed: () {
+                    // Close the dialog
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Next'))
+            ],
+          );
+        }).then((value) {
+      if (password.isEmpty) {
+        return;
+      }
+      showDialog(
+          context: context,
+          builder: (BuildContext ctx) {
+            return AlertDialog(
+              title: const Text('Please Confirm'),
+              content: const Text(
+                'Are you sure to delete the account?',
+                style: TextStyle(color: Colors.black54),
+              ),
+              actions: [
+                // The "Yes" button
+                TextButton(
+                    onPressed: () async {
+                      Navigator.of(context).pop();
+
+                      setState(() {
+                        loading = true;
+                      });
+
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .delete();
+                      var result = await FirebaseAuth.instance.currentUser
+                          ?.reauthenticateWithCredential(
+                              EmailAuthProvider.credential(
+                                  email: email, password: password));
+
+                      await result?.user?.delete();
+
+                      setState(() {
+                        loading = false;
+                      });
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          LoginScreen.routeName,
+                          (Route<dynamic> route) => false);
+                    },
+                    child: const Text(
+                      'Yes',
+                      style: TextStyle(color: Colors.red),
+                    )),
+                TextButton(
+                    onPressed: () {
+                      // Close the dialog
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('No'))
+              ],
+            );
+          });
     });
   }
 
@@ -131,12 +243,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                           const SizedBox(
                                             height: 43,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
+                                          const Padding(
+                                            padding: EdgeInsets.only(
                                                 left: 32.0, top: 24),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              children: const [
+                                              children: [
                                                 Image(
                                                     color: Colors.white,
                                                     image: AssetImage(
@@ -176,12 +288,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                               },
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
+                                          const Padding(
+                                            padding: EdgeInsets.only(
                                                 left: 32.0, top: 12),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              children: const [
+                                              children: [
                                                 Image(
                                                     color: Colors.white,
                                                     image: AssetImage(
@@ -236,12 +348,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                               obscureText: _isHidden,
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
+                                          const Padding(
+                                            padding: EdgeInsets.only(
                                                 left: 32.0, top: 12),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              children: const [
+                                              children: [
                                                 Image(
                                                     color: Colors.white,
                                                     image: AssetImage(
@@ -337,7 +449,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                               ),
                                                               padding:
                                                                   const EdgeInsets
-                                                                          .all(
+                                                                      .all(
                                                                       16.0)),
                                                       onPressed: () async {
                                                         if (_formKeyForSetting
@@ -433,7 +545,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                                               ),
                                                               padding:
                                                                   const EdgeInsets
-                                                                          .all(
+                                                                      .all(
                                                                       16.0)),
                                                       onPressed: () async {
                                                         dynamic result =
@@ -461,7 +573,64 @@ class _SettingScreenState extends State<SettingScreen> {
                                           ),
                                           const SizedBox(
                                             height: 30,
-                                          )
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 24.0, vertical: 2),
+                                            child: SizedBox(
+                                              width: double.infinity,
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.red,
+                                                    // gradient:
+                                                    //     const LinearGradient(
+                                                    //   begin:
+                                                    //       Alignment.topCenter,
+                                                    //   end: Alignment
+                                                    //       .bottomCenter,
+                                                    //   colors: [
+                                                    //     Color.fromRGBO(
+                                                    //         94, 209, 151, 1),
+                                                    //     Color.fromRGBO(
+                                                    //         26, 183, 168, 1)
+                                                    //   ],
+                                                    // ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: ElevatedButton(
+                                                      style: OutlinedButton
+                                                          .styleFrom(
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0),
+                                                              ),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(
+                                                                      16.0)),
+                                                      onPressed: () async =>
+                                                          _delete(
+                                                              context, email),
+                                                      child: const Text(
+                                                        'Delete Account',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ))),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
                                         ],
                                       ),
                                     ),
