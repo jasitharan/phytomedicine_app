@@ -6,29 +6,38 @@ class Conditions {
   final CollectionReference conditionsCollection =
       FirebaseFirestore.instance.collection('conditions');
 
-  DocumentSnapshot? _lastDocument;
+  DocumentSnapshot? _lastDocumentForHerbs;
+  DocumentSnapshot? _lastDocumentForConditions;
 
-  bool isDone = false;
   bool isSearch = false;
   final List<Condition> conditions = [];
+  final List<Condition> herbs = [];
 
-  Future getConditions(String condition) async {
+  Future getConditions(String condition, bool isHerb) async {
     try {
+      DocumentSnapshot? _lastDocument =
+          isHerb ? _lastDocumentForHerbs : _lastDocumentForConditions;
       QuerySnapshot<Object?> querySnapshot;
       isSearch = false;
 
       if (_lastDocument != null) {
         if (condition == '') {
           querySnapshot = await conditionsCollection
+              .where('isHerb', isEqualTo: isHerb)
               .orderBy('title')
-              .startAfterDocument(_lastDocument!)
+              .startAfterDocument(_lastDocument)
               .limit(7)
               .get();
         } else {
           _lastDocument = null;
-          conditions.clear();
+          if (isHerb) {
+            herbs.clear();
+          } else {
+            conditions.clear();
+          }
           isSearch = true;
           querySnapshot = await conditionsCollection
+              .where('isHerb', isEqualTo: isHerb)
               .where('title', isGreaterThanOrEqualTo: condition.capitalize())
               .where('title', isLessThan: condition.capitalize() + 'z')
               .orderBy('title')
@@ -38,14 +47,26 @@ class Conditions {
         }
       } else {
         if (condition == '') {
-          conditions.clear();
-          querySnapshot =
-              await conditionsCollection.orderBy('title').limit(7).get();
+          if (isHerb) {
+            herbs.clear();
+          } else {
+            conditions.clear();
+          }
+          querySnapshot = await conditionsCollection
+              .where('isHerb', isEqualTo: isHerb)
+              .orderBy('title')
+              .limit(7)
+              .get();
         } else {
           _lastDocument = null;
-          conditions.clear();
+          if (isHerb) {
+            herbs.clear();
+          } else {
+            conditions.clear();
+          }
           isSearch = true;
           querySnapshot = await conditionsCollection
+              .where('isHerb', isEqualTo: isHerb)
               .where('title', isGreaterThanOrEqualTo: condition.capitalize())
               .where('title', isLessThan: condition.capitalize() + 'z')
               .orderBy('title')
@@ -65,19 +86,37 @@ class Conditions {
         }
 
         document['image'] = imageName;
-        if (conditions
-            .where((element) => element.title == document['title'])
-            .isEmpty) {
-          try {
-            conditions.add(Condition.fromJson(document));
-          } catch (e) {
-            continue;
+        if (isHerb) {
+          if (herbs
+              .where((element) => element.title == document['title'])
+              .isEmpty) {
+            try {
+              herbs.add(Condition.fromJson(document));
+            } catch (e) {
+              continue;
+            }
+          }
+        } else {
+          if (conditions
+              .where((element) => element.title == document['title'])
+              .isEmpty) {
+            try {
+              conditions.add(Condition.fromJson(document));
+            } catch (e) {
+              continue;
+            }
           }
         }
       }
 
       if (!isSearch) {
         _lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
+      }
+
+      if (isHerb) {
+        _lastDocumentForHerbs = _lastDocument;
+      } else {
+        _lastDocumentForConditions = _lastDocument;
       }
 
       return 1;

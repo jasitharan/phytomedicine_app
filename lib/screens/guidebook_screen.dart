@@ -25,6 +25,7 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
   List<Map> conditions = [];
   bool _isInit = true;
   bool searchLoading = false;
+  bool isHerb = false;
 
   @override
   Future<void> didChangeDependencies() async {
@@ -33,13 +34,11 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
         loading = true;
       });
       final conditions = Provider.of<Conditions>(context);
+      final args =
+          ModalRoute.of(context)!.settings.arguments as Map<String, bool?>;
+      isHerb = args['isHerbs'] as bool;
 
-      if (!conditions.isDone) {
-        await conditions.getConditions('');
-        if (conditions.conditions.isNotEmpty) {
-          conditions.isDone = true;
-        }
-      }
+      await conditions.getConditions('', isHerb);
 
       setState(() {
         loading = false;
@@ -122,8 +121,8 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                               child: LazyLoadScrollView(
                                 scrollOffset: 150,
                                 onEndOfPage: () async {
-                                  final result = await conditions
-                                      .getConditions(searchTextController.text);
+                                  final result = await conditions.getConditions(
+                                      searchTextController.text, isHerb);
 
                                   if (mounted && result != null) {
                                     setState(() {});
@@ -145,8 +144,8 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                             searchLoading = true;
                                           });
                                           await conditions.getConditions(
-                                              searchTextController.text);
-                                          conditions.isDone = false;
+                                              searchTextController.text,
+                                              isHerb);
                                           setState(() {
                                             searchLoading = false;
                                           });
@@ -199,8 +198,9 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                         : ListView.builder(
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
-                                            itemCount:
-                                                conditions.conditions.length,
+                                            itemCount: isHerb
+                                                ? conditions.herbs.length
+                                                : conditions.conditions.length,
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) =>
                                                 ItemTile(
@@ -211,17 +211,27 @@ class _GuideBookScreenState extends State<GuideBookScreen> {
                                                           PDFViewScreen
                                                               .routeName,
                                                           arguments: {
-                                                            'condition': conditions
-                                                                    .conditions[
-                                                                index]
+                                                            'condition': isHerb
+                                                                ? conditions
+                                                                        .herbs[
+                                                                    index]
+                                                                : conditions
+                                                                        .conditions[
+                                                                    index]
                                                           });
                                                     },
-                                                    title: conditions
-                                                        .conditions[index]
-                                                        .title,
-                                                    imageName: conditions
-                                                        .conditions[index]
-                                                        .image),
+                                                    title: isHerb
+                                                        ? conditions
+                                                            .herbs[index].title
+                                                        : conditions
+                                                            .conditions[index]
+                                                            .title,
+                                                    imageName: isHerb
+                                                        ? conditions
+                                                            .herbs[index].image
+                                                        : conditions
+                                                            .conditions[index]
+                                                            .image),
                                           ),
                                     const SizedBox(
                                       height: 15,

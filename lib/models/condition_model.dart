@@ -5,17 +5,22 @@ class Condition {
   final String? image;
   final List<StepModel>? steps;
 
-  const Condition({required this.title, this.image, required this.steps});
+  final bool? isHerb;
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'image': image,
-        'steps': steps,
-      };
+  const Condition({
+    required this.title,
+    this.image,
+    required this.steps,
+    required this.isHerb,
+  });
+
+  Map<String, dynamic> toJson() =>
+      {'title': title, 'image': image, 'steps': steps, 'isHerb': isHerb};
 
   factory Condition.fromJson(Map<String, dynamic> json) => Condition(
         title: json["title"] ?? '',
         image: json['image'],
         steps: stepFromJson(json['steps']),
+        isHerb: json["isHerb"] ?? false,
       );
 }

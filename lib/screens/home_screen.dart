@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:phytomedicine_app/screens/guidebook_screen.dart';
 import 'package:phytomedicine_app/screens/leave_review_screen.dart';
 import 'package:phytomedicine_app/screens/mobile_medical_clinic_screen.dart';
 import 'package:phytomedicine_app/screens/phytomedicine_screen.dart';
+import 'package:phytomedicine_app/screens/selection_screen.dart';
 import 'package:phytomedicine_app/screens/setting_screen.dart';
 import 'package:phytomedicine_app/shared/custom_scroll.dart';
 import 'package:phytomedicine_app/shared/loading.dart';
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ItemTile(
                                         handlerFunction: () {
                                           Navigator.pushNamed(context,
-                                              GuideBookScreen.routeName);
+                                              SelectionScreen.routeName);
                                         },
                                         title: 'Guidebook',
                                         imageName: 'healthcare'),
